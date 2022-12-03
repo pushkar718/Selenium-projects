@@ -66,7 +66,7 @@ for inputs in range(1,25):
         break
     elif every_element_text!=last_element_text:
         every_element_text = driver.find_element(By.XPATH,"(//*[contains(@class,'MuiFormControl-root')])[%d]" % (inputs)).text
-        print(every_element_text,'DEBUG')
+        # print(every_element_text,'DEBUG')
         if 'Title' in every_element_text:
             every_element.click()
             all_options=driver.find_element(By.XPATH,"//li[contains(@class,'MuiButtonBase-root')]")
@@ -92,27 +92,29 @@ for inputs in range(1,25):
                 continue
         elif 'First Name' in every_element_text:
             every_element.click()
-            full_name_text=driver.find_element(By.XPATH,"//*[contains(text(),'"+every_element_text+"')]").text
-            if full_name_text=="":
+            first_name_text=driver.find_element(By.XPATH,"//*[contains(text(),'First Name')]").text
+            first_name_check=driver.find_element(By.XPATH,"//*[contains(@class,'MuiInputBase-input') and @value='']").text
+            if first_name_check=="":
                 selected_name=action.send_keys("Test")
                 selected_name.perform()
                 print(driver.find_element(By.XPATH, "(//label[contains(@class,'MuiFormLabel-root')])[%d]"%(inputs)).text, "->","Test")
             else:
                 continue
 
-        elif 'Last Name' in every_element_text:
+        elif ('Last Name' in every_element_text)or('Middle Name' in every_element_text):
             every_element.click()
-            full_name_text=driver.find_element(By.XPATH,"//*[contains(text(),'"+every_element_text+"')]").text
-            if full_name_text=="":
+            last_name_text=driver.find_element(By.XPATH,"//label[contains(text(), 'Last') or contains(text(), 'Middle') and contains(@class,'MuiFormLabel-root')]").text
+            last_name_check = driver.find_element(By.XPATH,"//*[contains(@class,'MuiInputBase-input') and @value='']").text
+            if last_name_check=="":
                 selected_name=action.send_keys("Name")
                 selected_name.perform()
                 print(driver.find_element(By.XPATH, "(//label[contains(@class,'MuiFormLabel-root')])[%d]"%(inputs)).text, "->","Name")
             else:
                 continue
-        elif 'Phone' in every_element_text:
+        elif ('Phone' in every_element_text) or ('Mobile' in every_element_text):
             every_element.click()
-            phone_number_text=driver.find_element(By.XPATH,"//*[contains(text(),'Phone No')]").text
-            check_phone=driver.find_element(By.XPATH,"//*[contains(@class,'MuiInputBase-input') and not(@value='')]").text
+            phone_number_text=driver.find_element(By.XPATH,"//*[contains(text(), 'Phone') or contains(text(), 'Mobile') and contains(@class,'MuiFormLabel-root')]").text
+            check_phone=driver.find_element(By.XPATH,"//*[contains(@class,'MuiInputBase-input') and @value='']").text
             if check_phone=="":
                 selected_number=action.send_keys("9667484050")
                 selected_number.perform()
@@ -132,7 +134,7 @@ for inputs in range(1,25):
                 continue
         elif 'Gender' in every_element_text:
             every_element.click()
-            time.sleep(1)
+            # time.sleep(1)
             all_options=driver.find_element(By.XPATH,"//li[contains(@class,'MuiButtonBase-root')]")
             all_options_text = driver.find_element(By.XPATH, "//li[contains(@class,'MuiButtonBase-root')]").text
             all_options_last = driver.find_element(By.XPATH, "(//li[contains(@class,'MuiButtonBase-root')])[last()]").text
@@ -147,6 +149,17 @@ for inputs in range(1,25):
                 else:
                     continue
 
+        elif 'Loan Amount' in every_element_text:
+            every_element.click()
+            # loan_amt_text=driver.find_element(By.XPATH,"//*[contains(text(),'Loan Amount') and contains(@class,'MuiFormLabel-root')] ").text
+            loan_amt_check=driver.find_element(By.XPATH,"//*[contains(@class,'MuiInputBase-input') and @value='']").text
+            if loan_amt_check=="":
+                selected_amt=action.send_keys(random.randint(20000,100000))
+                selected_amt.perform()
+                print(driver.find_element(By.XPATH, "(//label[contains(@class,'MuiFormLabel-root')])[%d]"%(inputs)).text, "->",selected_amt)
+            else:
+                continue
+
 
 
 time.sleep(2)
@@ -154,7 +167,7 @@ driver.close()
 
 
 '''
-TO-DO
+TO-DO-ISSUES
 -------
 1. Different names, classes and attibutes everywhere
 '''
