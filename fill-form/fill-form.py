@@ -40,9 +40,10 @@ full_name.click()
 action.send_keys("Test name").perform()
 phone_number=driver.find_element(By.XPATH,"//input[@class='MuiInputBase-input MuiInput-input' and @name='phone_no']")
 action.move_to_element(phone_number).perform()
+driver.execute_script("window.scrollBy(0,70)", "")
 phone_number.click()
 action.send_keys("9667484050").perform()
-# driver.execute_script("window.scrollBy(0,50)","")
+driver.execute_script("window.scrollBy(0,70)","")
 otp_box=driver.find_element(By.XPATH,"//input[@id='otpCheckbox']")
 action.move_to_element(otp_box).perform()
 otp_box.click()
@@ -59,14 +60,16 @@ time.sleep(0.5)
 verify_otp=driver.find_element(By.XPATH,"//button[@class='mt-4']").click()
 time.sleep(1)
 last_element_text=driver.find_element(By.XPATH,"(//*[contains(@class,'MuiFormControl-root')])[last()]").text
+driver.execute_script("window.scrollBy(0,100)","")
 for inputs in range(1,25):
     every_element = driver.find_element(By.XPATH, "(//*[contains(@class,'MuiFormControl-root')])[%d]" % (inputs))
     every_element_text = driver.find_element(By.XPATH, "(//*[contains(@class,'MuiFormControl-root')])[%d]" % (inputs)).text
     # print(every_element_text,'DEBUG')
     # while every_element_text!=last_element_text
     if every_element_text==last_element_text:
-        every_element_text = driver.find_element(By.XPATH,"(//*[contains(@class,'MuiFormControl-root')])[%d]" % (inputs)).text
-        break
+        print("completed-------")
+        # every_element_text = driver.find_element(By.XPATH,"(//*[contains(@class,'MuiFormControl-root')])[%d]" % (inputs)).text
+        # break
     elif every_element_text!=last_element_text:
         every_element_text = driver.find_element(By.XPATH,"(//*[contains(@class,'MuiFormControl-root')])[%d]" % (inputs)).text
         # print(every_element_text,'DEBUG')
@@ -163,6 +166,18 @@ for inputs in range(1,25):
             else:
                 continue
 
+        elif ('Pincode' in every_element_text)or('Postal' in every_element_text):
+            every_element.click()
+            pincode_check=driver.find_element(By.XPATH,"//*[contains(@class,'MuiInputBase-input') and @value='']").text
+            if pincode_check=="":
+                selected_pincode=action.send_keys(random.randint(100000,999990))
+                selected_pincode.perform()
+                print(driver.find_element(By.XPATH, "(//label[contains(@class,'MuiFormLabel-root')])[%d]"%(inputs)).text, "->",selected_pincode)
+            else:
+                continue
+
+
+# //*[contains(text(),'Pincode') and contains(@class,'MuiFormLabel-root')]
 
 
 time.sleep(2)
