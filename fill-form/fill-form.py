@@ -151,3 +151,10 @@ for inputs in range(1,25):
 
 time.sleep(2)
 driver.close()
+
+
+'''
+ISSUES
+-------
+1. Different names, classes and attibutes everywhere
+'''
