@@ -154,7 +154,7 @@ driver.close()
 
 
 '''
-ISSUES
+TO-DO
 -------
 1. Different names, classes and attibutes everywhere
 '''
