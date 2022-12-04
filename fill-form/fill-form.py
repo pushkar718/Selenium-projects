@@ -176,10 +176,6 @@ for inputs in range(1,25):
             else:
                 continue
 
-        if every_element_text == last_element_text:
-            print("completed-------")
-            # every_element_text = driver.find_element(By.XPATH,"(//*[contains(@class,'MuiFormControl-root')])[%d]" % (inputs)).text
-            break
 
 # //*[contains(text(),'Pincode') and contains(@class,'MuiFormLabel-root')]
 
