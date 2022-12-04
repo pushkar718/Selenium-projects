@@ -16,7 +16,7 @@ driver.get("https://qa.referloan.in/")
 form_name=py.prompt("Enter name of form")
 form_name=form_name.replace('yes',"".join('')).replace('hdfc',"".join('')).replace('icici',"".join('')).replace('au',"".join('')).replace('sbi',"".join(''))
 print(form_name)
-if form_name==''or form_name==None:
+if (form_name=='') or (form_name==None):
     print("Nothing in prompt.\n----Trying URL----")
     form_url=py.prompt("Enter URL of the page")
     if form_url=='' or form_url==None:
@@ -69,7 +69,7 @@ for inputs in range(1,25):
     if every_element_text==last_element_text:
         print("completed-------")
         # every_element_text = driver.find_element(By.XPATH,"(//*[contains(@class,'MuiFormControl-root')])[%d]" % (inputs)).text
-        # break
+        break
     elif every_element_text!=last_element_text:
         every_element_text = driver.find_element(By.XPATH,"(//*[contains(@class,'MuiFormControl-root')])[%d]" % (inputs)).text
         # print(every_element_text,'DEBUG')
@@ -176,6 +176,10 @@ for inputs in range(1,25):
             else:
                 continue
 
+        if every_element_text == last_element_text:
+            print("completed-------")
+            # every_element_text = driver.find_element(By.XPATH,"(//*[contains(@class,'MuiFormControl-root')])[%d]" % (inputs)).text
+            break
 
 # //*[contains(text(),'Pincode') and contains(@class,'MuiFormLabel-root')]
 
@@ -188,4 +192,26 @@ driver.close()
 TO-DO-ISSUES
 -------
 1. Different names, classes and attibutes everywhere
+'''
+
+'''
+IDEA for the blunder:
+    if every_element_text==last_element_text:
+        print("completed-------")
+        # every_element_text = driver.find_element(By.XPATH,"(//*[contains(@class,'MuiFormControl-root')])[%d]" % (inputs)).text
+        # break
+    # elif every_element_text!=last_element_text:
+    ----Remove this---- LINE-69 
+    
+LOGIC--:
+if every-element = last element then do the work and break the loop 
+while true:
+    fill the data
+    and if every-element=last element:
+        break
+this will execute the script untill break is not hit
+
+if last-element is reached, it will will the data and check the condition, and will break the while true loop
+
+
 '''
