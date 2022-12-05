@@ -4,11 +4,12 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 import random
+import NameGenerator
 import time
 import pyautogui as py
 
-first_name_options=['Test','Name','Qa','Dummy']
-last_name_options=['Test','Name','Qa','Dummy']
+
+name=NameGenerator.generator()
 driver=webdriver.Chrome()
 driver.maximize_window()
 action=ActionChains(driver)
