@@ -7,7 +7,8 @@ import random
 import time
 import pyautogui as py
 
-
+first_name_options=['Test','Name','Qa','Dummy']
+last_name_options=['Test','Name','Qa','Dummy']
 driver=webdriver.Chrome()
 driver.maximize_window()
 action=ActionChains(driver)
