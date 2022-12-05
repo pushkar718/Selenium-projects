@@ -47,7 +47,7 @@ action.send_keys(name).perform()
 phone_number=driver.find_element(By.XPATH,"//input[@class='MuiInputBase-input MuiInput-input' and @name='phone_no']")
 action.move_to_element(phone_number).perform()
 phone_number.click()
-action.send_keys("9667484050").perform()
+action.send_keys(int(9667484050)).perform()
 otp_box=driver.find_element(By.XPATH,"//input[@id='otpCheckbox']")
 action.move_to_element(otp_box).perform()
 otp_box.click()
@@ -119,12 +119,12 @@ for inputs in range(1,25):
         else:
             continue
 
-    elif ('Phone' in every_element_text) or ('Mobile' in every_element_text):
+    elif ('Phone' in every_element_text) or ('Mobile' in every_element_text)or ('phone' in every_element_text):
         every_element.click()
         phone_number_text=driver.find_element(By.XPATH,"//*[contains(text(), 'Phone') or contains(text(), 'Mobile') and contains(@class,'MuiFormLabel-root')]").text
         check_phone=driver.find_element(By.XPATH,"//*[contains(@class,'MuiInputBase-input') and @value='']").text
         if check_phone=="":
-            selected_number=action.send_keys("9667484050")
+            selected_number=action.send_keys(int(9667484050))
             selected_number.perform()
             print(driver.find_element(By.XPATH, "(//label[contains(@class,'MuiFormLabel-root')])[%d]"%(inputs)).text, "->","9667484050")
         else:
@@ -182,7 +182,7 @@ for inputs in range(1,25):
         action.double_click(every_element).perform()
         dob_check=driver.find_element(By.XPATH,"//*[contains(@class,'MuiInputBase-input') and @value='']").text
         if dob_check=="":
-            final_dob = str(random.randint(1, 12)) + str(random.randint(1, 31)) + str(random.randint(1960, 2022))
+            final_dob = "10" + "10" + str(random.randint(1960, 2022))
             if len(final_dob) <= 7:
                 final_dob = '0' + final_dob
                 if len(final_dob) == 7:
@@ -338,7 +338,7 @@ time.sleep(1)
 submit_button=driver.find_element(By.XPATH,"//button[@class='mt-4']")
 submit_button.click()
 time.sleep(1.2)
-if driver.find_element(By.XPATH,"//*[contains(text(),'Professional')]").is_displayed()==True:
+if (driver.find_element(By.XPATH,"//h3[contains(text(),'Professional')] or contains(text(),'Other') or contains(text(),'Details')").is_displayed()==True):
     print("-"*5,"Professional Details","-"*5)
     for inputs in range(1, 25):
         time.sleep(0.8)
@@ -404,7 +404,7 @@ if driver.find_element(By.XPATH,"//*[contains(text(),'Professional')]").is_displ
             company_phone_text = driver.find_element(By.XPATH, "//*[contains(text(),'Company name')]").text
             check_com_phone = driver.find_element(By.XPATH, "//*[contains(@class,'MuiInputBase-input') and @value='']").text
             if check_com_phone == "":
-                selected_phone = action.send_keys("9667484050")
+                selected_phone = action.send_keys(int(9667484050))
                 selected_phone.perform()
                 print(driver.find_element(By.XPATH,"(//label[contains(@class,'MuiFormLabel-root')])[%d]" % (inputs)).text, "->","9667484050")
             else:
@@ -428,6 +428,17 @@ if driver.find_element(By.XPATH,"//*[contains(text(),'Professional')]").is_displ
                         driver.find_element(By.XPATH,"//*[contains(@class,'MuiButtonBase-root')]/em[text()='" + selected_option + "']").click()
                         print(driver.find_element(By.XPATH, "(//label[contains(@class,'MuiFormLabel-root')])[%d]" % (inputs)).text, "->", selected_option)
                         break
+
+        elif ('Income' in every_element_text)or('Monthly Income' in every_element_text):
+            every_element.click()
+            income_amt_check = driver.find_element(By.XPATH,"//*[contains(@class,'MuiInputBase-input') and @value='']").text
+            if income_amt_check == "":
+                selected_amt = action.send_keys(random.randint(20000, 100000))
+                selected_amt.perform()
+                print(driver.find_element(By.XPATH,"(//label[contains(@class,'MuiFormLabel-root')])[%d]" % (inputs)).text, "->",selected_amt)
+            else:
+                continue
+
         elif ('Document Type' in every_element_text)or('Document type' in every_element_text):
             every_element.click()
             time.sleep(0.3)
@@ -464,11 +475,18 @@ if driver.find_element(By.XPATH,"//*[contains(text(),'Professional')]").is_displ
             submit_button.click()
             time.sleep(1)
             break
-else:
-    if driver.find_element(By.XPATH,"//*[@class='form-error' and contains(text(),'Something')]").is_displayed()==True:
-        print("Check referloan-error channel")
-    else:
-        print("Data submitted successfully")
 
+if driver.find_element(By.XPATH,"//p[@class='form-error']").text=="Something went wrong!":
+    print("Check referloan-error channel")
+    screenshot = driver.find_element(By.XPATH, "//div[@class='loanStep__wrapper']")
+    screenshot.screenshot(choosen_form_name+".png")
+    exit(1)
+    driver.close()
+else:
+    print("Data submitted successfully")
+
+if driver.find_element(By.XPATH,"//*[@class='display-3']").text=="Thank You!":
+    screenshot=driver.find_element(By.XPATH,"//div[@class='jumbotron text-center']")
+    screenshot.screenshot(driver.find_element(By.XPATH,"//span[contains(@style,'text-transform: capitalize')]").text+".png")
 time.sleep(2)
 driver.close()
