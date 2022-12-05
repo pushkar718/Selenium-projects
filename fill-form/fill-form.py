@@ -5,11 +5,13 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 import random
 import NameGenerator
+import PanGenerator
 import time
 import pyautogui as py
 
 
 name=NameGenerator.generator()
+pan_card=PanGenerator.generator(name)
 driver=webdriver.Chrome()
 driver.maximize_window()
 action=ActionChains(driver)
@@ -34,17 +36,17 @@ print("First URL found:","\n",found_url.replace("?utm_source=direct_visitors&utm
 time.sleep(1)
 driver.get(found_url)
 time.sleep(1.5)
-driver.execute_script("window.scrollBy(0,300)","")
+driver.find_element(By.TAG_NAME,'body').send_keys(Keys.CONTROL + Keys.HOME)
+time.sleep(0.2)
+driver.execute_script("window.scrollBy(0,200)","")
 full_name=driver.find_element(By.XPATH,"//input[@class='MuiInputBase-input MuiInput-input' and @name='full_name']")
 action.move_to_element(full_name).perform()
 full_name.click()
-action.send_keys("Test name").perform()
+action.send_keys(name).perform()
 phone_number=driver.find_element(By.XPATH,"//input[@class='MuiInputBase-input MuiInput-input' and @name='phone_no']")
 action.move_to_element(phone_number).perform()
-
 phone_number.click()
 action.send_keys("9667484050").perform()
-
 otp_box=driver.find_element(By.XPATH,"//input[@id='otpCheckbox']")
 action.move_to_element(otp_box).perform()
 otp_box.click()
@@ -88,7 +90,7 @@ for inputs in range(1,25):
         every_element.click()
         full_name_text=driver.find_element(By.XPATH,"//input[@id='full_name']").text
         if full_name_text=="":
-            selected_name=action.send_keys("Test Name")
+            selected_name=action.send_keys(name)
             selected_name.perform()
             print(driver.find_element(By.XPATH, "(//label[contains(@class,'MuiFormLabel-root')])[%d]"%(inputs)).text, "->","Test Name")
         else:
@@ -334,7 +336,10 @@ for inputs in range(1,25):
 time.sleep(1)
 submit_button=driver.find_element(By.XPATH,"//button[@class='mt-4']")
 submit_button.click()
-
+if driver.find_element(By.XPATH,"//*[@class='form-error' and contains(text(),'Something')]").is_displayed()==True:
+    print("Check referloan-error channel")
+else:
+    print("Data submitted successfully")
 
 time.sleep(2)
 driver.close()
