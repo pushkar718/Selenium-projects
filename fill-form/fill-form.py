@@ -19,7 +19,7 @@ action=ActionChains(driver)
 time.sleep(0.5)
 driver.get("https://qa.referloan.in/")
 form_name=py.prompt("Enter name of form")
-form_name=form_name.replace('yes',"".join('')).replace('hdfc',"".join('')).replace('icici',"".join('')).replace('au',"".join('')).replace('sbi',"".join(''))
+# form_name=form_name.replace('yes',"".join('')).replace('hdfc',"".join('')).replace('icici',"".join('')).replace('au',"".join('')).replace('sbi',"".join(''))
 if (form_name=='') or (form_name==None):
     print("Nothing in prompt.\n----Trying URL----")
     form_url=py.prompt("Enter URL of the page")
@@ -31,11 +31,15 @@ if (form_name=='') or (form_name==None):
 else:
     print("Choosen name = ",form_name)
 form_name=form_name.lower()
-choosen_form_name=driver.find_element(By.XPATH,"//a[@tabindex='-1' and contains(text(),'"+form_name+"')]")
-found_url=choosen_form_name.get_attribute('href')
-print("First URL found:","\n",found_url.replace("?utm_source=direct_visitors&utm_medium=self&utm_campaign=&utm_id=",''))
-time.sleep(1)
-driver.get(found_url)
+for loop in range(1,500):
+    all_element=driver.find_element(By.XPATH,"(//a[@tabindex='-1'])[%d]"%(loop))
+    all_element_url=all_element.get_attribute('href')
+    all_element_name=all_element.get_attribute('innerHTML').lower()
+    form_name_url=form_name.replace(" ","-")
+    if (form_name in all_element_name)or(form_name_url in all_element_url):
+        driver.get(all_element_url)
+        break
+print("First URL found:","\n",all_element_url.replace("?utm_source=direct_visitors&utm_medium=self&utm_campaign=&utm_id=",''))
 time.sleep(1.5)
 driver.find_element(By.TAG_NAME,'body').send_keys(Keys.CONTROL + Keys.HOME)
 time.sleep(0.2)
@@ -43,7 +47,7 @@ driver.execute_script("window.scrollBy(0,200)","")
 full_name=driver.find_element(By.XPATH,"//input[@class='MuiInputBase-input MuiInput-input' and @name='full_name']")
 action.move_to_element(full_name).perform()
 full_name.click()
-action.send_keys(name).perform()
+action.send_keys("name").perform()
 phone_number=driver.find_element(By.XPATH,"//input[@class='MuiInputBase-input MuiInput-input' and @name='phone_no']")
 action.move_to_element(phone_number).perform()
 phone_number.click()
@@ -91,7 +95,7 @@ for inputs in range(1,25):
         every_element.click()
         full_name_text=driver.find_element(By.XPATH,"//input[@id='full_name']").text
         if full_name_text=="":
-            selected_name=action.send_keys(name)
+            selected_name=action.send_keys("name")
             selected_name.perform()
             print(driver.find_element(By.XPATH, "(//label[contains(@class,'MuiFormLabel-root')])[%d]"%(inputs)).text, "->","Test Name")
         else:
@@ -479,7 +483,7 @@ if (driver.find_element(By.XPATH,"//h3[contains(text(),'Professional')] or conta
 if driver.find_element(By.XPATH,"//p[@class='form-error']").text=="Something went wrong!":
     print("Check referloan-error channel")
     screenshot = driver.find_element(By.XPATH, "//div[@class='loanStep__wrapper']")
-    screenshot.screenshot(choosen_form_name+".png")
+    screenshot.screenshot(all_element_name+".png")
     exit(1)
     driver.close()
 else:
