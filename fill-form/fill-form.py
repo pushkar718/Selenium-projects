@@ -30,7 +30,7 @@ if (form_name=='') or (form_name==None):
         driver.quit()
 else:
     print("Choosen name = ",form_name)
-form_name=form_name.title()
+form_name=form_name.lower()
 choosen_form_name=driver.find_element(By.XPATH,"//a[@tabindex='-1' and contains(text(),'"+form_name+"')]")
 found_url=choosen_form_name.get_attribute('href')
 print("First URL found:","\n",found_url.replace("?utm_source=direct_visitors&utm_medium=self&utm_campaign=&utm_id=",''))
