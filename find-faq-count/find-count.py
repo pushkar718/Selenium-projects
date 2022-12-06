@@ -12,12 +12,12 @@ try:
     # driver=webdriver.Chrome()
     driver.maximize_window()
     action=ActionChains(driver)
-    driver.get("https://qa.referloan.in")
+    driver.get("https://referloan.in")
     time.sleep(1.8)
     check_last = driver.find_element(By.XPATH, "(//ul/li/a[@tabindex='-1'])[last()]")
     check_last_url=check_last.get_attribute('href')
-    f = open("less_than_5_faq.txt", "w")
-    w = open("more_than_5_faq.txt", "w")
+    less = open("less_than_5_faq.txt", "w")
+    more = open("more_than_5_faq.txt", "w")
     page_count=0
     for b in range(1, 500):
         try:
@@ -38,21 +38,24 @@ try:
                 count=count+1
                 if check_faq_count==check_faq_count_last:
                     if int(count)<5:
-                        write=str(page_name)+" Has-> "+str(count)+"FAQs\n"
-                        f.write(write)
+                        write=str(page_name)+" Has-> "+str(count)+" FAQs\n"
+                        less.write(write)
                         print(page_name, "Has ->", count, "FAQs")
                     else:
                         print(page_name, "Has ->", count, "FAQs")
-                        w.write("%s Has-> %s FAQs\n"%(page_name,count))
+                        write = str(page_name) + " Has-> " + str(count) + " FAQs\n"
+                        more.write(write)
                     break
 
             if check_url==check_last_url:
                 break
         except NoSuchElementException:
+            write = str(page_name) + " Has-> " + str(count) + " FAQs\n"
+            less.write(write)
             print(page_name, "Has ->", count, "FAQs")
     time.sleep(1)
-    f.close()
-    w.close()
+    less.close()
+    more.close()
     print("\n\nChecked", page_count, "Pages..!")
     driver.close()
 except KeyboardInterrupt:
