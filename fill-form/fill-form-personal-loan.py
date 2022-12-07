@@ -398,7 +398,6 @@ for i in range(1, 40):
         #     screenshot.screenshot(driver.find_element(By.XPATH,"//span[contains(@style,'text-transform: capitalize')]").text+".png")
 
         restart = True
-            # break
         # if restart == True:
         #     if restart==True:
         #         break
