@@ -5,10 +5,10 @@ from selenium.webdriver.common.action_chains import ActionChains
 import random
 import time
 
-chrome_options=Options()
-chrome_options.add_argument("--headless")
-driver=webdriver.Chrome(options=chrome_options)
-# driver=webdriver.Chrome()
+# chrome_options=Options()
+# chrome_options.add_argument("--headless")
+# driver=webdriver.Chrome(options=chrome_options)
+driver=webdriver.Chrome()
 action=ActionChains(driver)
 driver.maximize_window()
 driver.get("https://qa.referloan.in")
