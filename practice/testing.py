@@ -1,16 +1,19 @@
 import time
 
-from selenium import webdriver
-from selenium.webdriver.common.by import By
+for i in range(1,10):
+    restart=True
+    while restart:
+        restart=False
+        for j in range(1,5):
+            print("restart=true",i,j)
+            time.sleep(0.2)
+            if j == 3:
+                break
+        restart=True
 
+        if restart==True:
+            print("restart change")
+            # if j==3:
+            #     break
+            # break
 
-driver=webdriver.Chrome()
-driver.get("https://qa.referloan.in/loans/kreditbee-personal-loan")
-time.sleep(2)
-
-if driver.find_element(By.XPATH, "//*[@class='display-3']").is_displayed() == True:
-    screenshot = driver.find_element(By.XPATH, "//div[@class='jumbotron text-center']")
-    screenshot.screenshot(
-    driver.find_element(By.XPATH, "//span[contains(@style,'text-transform: capitalize')]").text + ".png")
-else:
-    print("Not available")

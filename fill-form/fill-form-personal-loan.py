@@ -111,6 +111,7 @@ for i in range(1, 40):
             every_element_text = driver.find_element(By.XPATH, "(//*[contains(@class,'MuiFormControl-root')])[%d]" % (inputs)).text
             time.sleep(0.3)
             every_element_text = driver.find_element(By.XPATH,"(//*[contains(@class,'MuiFormControl-root')])[%d]" % (inputs)).text
+            last_element_text = driver.find_element(By.XPATH,"(//*[contains(@class,'MuiFormControl-root')])[last()]").text
             if 'Title' in every_element_text:
                 every_element.click()
                 time.sleep(0.3)
@@ -353,7 +354,8 @@ for i in range(1, 40):
                             break
                     else:
                         continue
-            if ('Employee Type' in every_element_text)or('Employment Type' in every_element_text):
+
+            elif ('Employee Type' in every_element_text)or('Employment Type' in every_element_text):
                 every_element.click()
                 time.sleep(0.3)
                 all_options_last = driver.find_element(By.XPATH,"(//li[contains(@class,'MuiButtonBase-root')])[last()]").text
@@ -372,16 +374,36 @@ for i in range(1, 40):
                             driver.find_element(By.XPATH,"//*[contains(@class,'MuiButtonBase-root')]/em[text()='" + selected_option + "']").click()
                             print(driver.find_element(By.XPATH, "(//label[contains(@class,'MuiFormLabel-root')])[%d]" % (inputs)).text, "->", selected_option)
                             break
+            elif ('Income' in every_element_text)or('Monthly Income' in every_element_text):
+                every_element.click()
+                income_amt_check = driver.find_element(By.XPATH,"//*[contains(@class,'MuiInputBase-input') and @value='']").text
+                if income_amt_check == "":
+                    selected_amt = action.send_keys(random.randint(20000, 100000))
+                    selected_amt.perform()
+                    print(driver.find_element(By.XPATH,"(//label[contains(@class,'MuiFormLabel-root')])[%d]" % (inputs)).text, "->",selected_amt)
+                else:
+                    continue
             if every_element_text==last_element_text:
                 break
-        time.sleep(1)
+        # time.sleep(1)
         submit_button=driver.find_element(By.XPATH,"//button[@class='mt-4']")
         submit_button.click()
         time.sleep(2)
-        if (driver.find_element(By.XPATH,"//h3[contains(text(),'Professional') or contains(text(),'Other') or contains(text(),'Details')]").is_displayed()==True):
+        # more_details=driver.find_element(By.XPATH,"//h3[contains(text(),'Professional') or contains(text(),'Other') or contains(text(),'Details')]").is_displayed()
+        # thank_you=driver.find_element(By.XPATH,"//*[@class='display-3'and contains(text(),'Thank you')]").is_displayed()
+        if (driver.find_element(By.XPATH,"//h3[contains(text(),'Professional') or contains(text(),'Other') or contains(text(),'Details')]").is_displayed())or(driver.find_element(By.XPATH,"//*[@class='display-3'and contains(text(),'Thank you')]").is_displayed()):
             print("-"*5,"Professional Details","-"*5)
-            restart = True
-            break
+        # elif driver.find_element(By.XPATH,"//*[@class='display-3']").text=="Thank You!":
+        #     screenshot=driver.find_element(By.XPATH,"//div[@class='jumbotron text-center']")
+        #     screenshot.screenshot(driver.find_element(By.XPATH,"//span[contains(@style,'text-transform: capitalize')]").text+".png")
+
+        restart = True
+            # break
+        # if restart == True:
+        #     if restart==True:
+        #         break
+    # if restart==True:
+    #     break
     #     for inputs in range(1, 30):
     #         time.sleep(0.8)
     #         available_option = []
