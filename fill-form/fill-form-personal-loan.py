@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.common.exceptions import NoSuchElementException
 # from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
@@ -355,7 +356,7 @@ for i in range(1, 40):
                     else:
                         continue
 
-            elif ('Employee Type' in every_element_text)or('Employment Type' in every_element_text):
+            elif ('Type' in every_element_text)or('type' in every_element_text):
                 every_element.click()
                 time.sleep(0.3)
                 all_options_last = driver.find_element(By.XPATH,"(//li[contains(@class,'MuiButtonBase-root')])[last()]").text
@@ -383,6 +384,35 @@ for i in range(1, 40):
                     print(driver.find_element(By.XPATH,"(//label[contains(@class,'MuiFormLabel-root')])[%d]" % (inputs)).text, "->",selected_amt)
                 else:
                     continue
+            elif ('Profession Type' in every_element_text)or('Professional Type' in every_element_text):
+                every_element.click()
+                time.sleep(0.3)
+                all_options_last = driver.find_element(By.XPATH,"(//li[contains(@class,'MuiButtonBase-root')])[last()]").text
+                for i in range(1, 30):
+                    all_options_text = driver.find_element(By.XPATH,"(//li[contains(@class,'MuiButtonBase-root')])[%d]" % (i)).text
+                    available_option.append(all_options_text)
+                    if all_options_text == all_options_last:
+                        if 'Select option' in available_option:
+                            available_option.remove('Select option')
+                            selected_option = random.choice(available_option)
+                            driver.find_element(By.XPATH,"//*[contains(@class,'MuiButtonBase-root')]/em[text()='" + selected_option + "']").click()
+                            print(driver.find_element(By.XPATH, "(//label[contains(@class,'MuiFormLabel-root')])[%d]" % (inputs)).text, "->", selected_option)
+                            break
+                        else:
+                            selected_option = random.choice(available_option)
+                            driver.find_element(By.XPATH,"//*[contains(@class,'MuiButtonBase-root')]/em[text()='" + selected_option + "']").click()
+                            print(driver.find_element(By.XPATH, "(//label[contains(@class,'MuiFormLabel-root')])[%d]" % (inputs)).text, "->", selected_option)
+                            break
+            elif ('city' in every_element_text) or ('City' in every_element_text):
+                every_element.click()
+                city_check = driver.find_element(By.XPATH,"//*[contains(@class,'MuiInputBase-input') and @value='']").text
+                if city_check == "":
+                    city = "Delhi"
+                    selected_city = action.send_keys(city)
+                    selected_city.perform()
+                    print(driver.find_element(By.XPATH,"(//label[contains(@class,'MuiFormLabel-root')])[%d]" % (inputs)).text,"->", city)
+                else:
+                    continue
             if every_element_text==last_element_text:
                 break
         # time.sleep(1)
@@ -391,13 +421,28 @@ for i in range(1, 40):
         time.sleep(2)
         # more_details=driver.find_element(By.XPATH,"//h3[contains(text(),'Professional') or contains(text(),'Other') or contains(text(),'Details')]").is_displayed()
         # thank_you=driver.find_element(By.XPATH,"//*[@class='display-3'and contains(text(),'Thank you')]").is_displayed()
-        if (driver.find_element(By.XPATH,"//h3[contains(text(),'Professional') or contains(text(),'Other') or contains(text(),'Details')]").is_displayed())or(driver.find_element(By.XPATH,"//*[@class='display-3'and contains(text(),'Thank you')]").is_displayed()):
-            print("-"*5,"Professional Details","-"*5)
+        if (driver.find_element(By.XPATH,"//*[@class='loanStep__wrapper']/descendant::*[contains(text(),'Details') or contains(text(),'Thank') or contains(text(),'detail')]")):
+            print("-" * 5, "Professional Details", "-" * 5)
+            if 'Thank You' in driver.find_element(By.TAG_NAME,"html").text:
+                time.sleep(1)
+                screenshot = driver.find_element(By.XPATH, "//div[@class='jumbotron text-center']")
+                screenshot.screenshot(driver.find_element(By.XPATH,"//span[contains(@style,'text-transform: capitalize')]").text+".png")
+                time.sleep(1)
+                break
+            # else:
+            #     continue
+
+        restart = True
+
+
+
+
+
         # elif driver.find_element(By.XPATH,"//*[@class='display-3']").text=="Thank You!":
         #     screenshot=driver.find_element(By.XPATH,"//div[@class='jumbotron text-center']")
         #     screenshot.screenshot(driver.find_element(By.XPATH,"//span[contains(@style,'text-transform: capitalize')]").text+".png")
 
-        restart = True
+        # restart = True
         # if restart == True:
         #     if restart==True:
         #         break
@@ -412,44 +457,7 @@ for i in range(1, 40):
     #         every_element_text = driver.find_element(By.XPATH,"(//*[contains(@class,'MuiFormControl-root')])[%d]" % (inputs)).text
     #         every_element_last=driver.find_element(By.XPATH,"(//*[contains(@class,'MuiFormControl-root')])[last()]").text
     #
-    #         if ('Employee Type' in every_element_text)or('Employment Type' in every_element_text):
-    #             every_element.click()
-    #             time.sleep(0.3)
-    #             all_options_last = driver.find_element(By.XPATH,"(//li[contains(@class,'MuiButtonBase-root')])[last()]").text
-    #             for i in range(1, 30):
-    #                 all_options_text = driver.find_element(By.XPATH,"(//li[contains(@class,'MuiButtonBase-root')])[%d]" % (i)).text
-    #                 available_option.append(all_options_text)
-    #                 if all_options_text == all_options_last:
-    #                     if 'Select option' in available_option:
-    #                         available_option.remove('Select option')
-    #                         selected_option = random.choice(available_option)
-    #                         driver.find_element(By.XPATH,"//*[contains(@class,'MuiButtonBase-root')]/em[text()='" + selected_option + "']").click()
-    #                         print(driver.find_element(By.XPATH, "(//label[contains(@class,'MuiFormLabel-root')])[%d]" % (inputs)).text, "->", selected_option)
-    #                         break
-    #                     else:
-    #                         selected_option = random.choice(available_option)
-    #                         driver.find_element(By.XPATH,"//*[contains(@class,'MuiButtonBase-root')]/em[text()='" + selected_option + "']").click()
-    #                         print(driver.find_element(By.XPATH, "(//label[contains(@class,'MuiFormLabel-root')])[%d]" % (inputs)).text, "->", selected_option)
-    #                         break
-    #         # if ('Profession Type' in every_element_text)or('Professional Type' in every_element_text):
-    #         #     every_element.click()
-    #         #     time.sleep(0.3)
-    #         #     all_options_last = driver.find_element(By.XPATH,"(//li[contains(@class,'MuiButtonBase-root')])[last()]").text
-    #         #     for i in range(1, 30):
-    #         #         all_options_text = driver.find_element(By.XPATH,"(//li[contains(@class,'MuiButtonBase-root')])[%d]" % (i)).text
-    #         #         available_option.append(all_options_text)
-    #         #         if all_options_text == all_options_last:
-    #         #             if 'Select option' in available_option:
-    #         #                 available_option.remove('Select option')
-    #         #                 selected_option = random.choice(available_option)
-    #         #                 driver.find_element(By.XPATH,"//*[contains(@class,'MuiButtonBase-root')]/em[text()='" + selected_option + "']").click()
-    #         #                 print(driver.find_element(By.XPATH, "(//label[contains(@class,'MuiFormLabel-root')])[%d]" % (inputs)).text, "->", selected_option)
-    #         #                 break
-    #         #             else:
-    #         #                 selected_option = random.choice(available_option)
-    #         #                 driver.find_element(By.XPATH,"//*[contains(@class,'MuiButtonBase-root')]/em[text()='" + selected_option + "']").click()
-    #         #                 print(driver.find_element(By.XPATH, "(//label[contains(@class,'MuiFormLabel-root')])[%d]" % (inputs)).text, "->", selected_option)
-    #         #                 break
+
     #         if('Type' in every_element_text):
     #             every_element.click()
     #             time.sleep(0.3)
@@ -600,16 +608,7 @@ for i in range(1, 40):
     #             else:
     #                 continue
     #
-    #         elif ('city' in every_element_text) or ('City' in every_element_text):
-    #             every_element.click()
-    #             city_check = driver.find_element(By.XPATH,"//*[contains(@class,'MuiInputBase-input') and @value='']").text
-    #             if city_check == "":
-    #                 city = "Delhi"
-    #                 selected_city = action.send_keys(city)
-    #                 selected_city.perform()
-    #                 print(driver.find_element(By.XPATH,"(//label[contains(@class,'MuiFormLabel-root')])[%d]" % (inputs)).text,"->", city)
-    #             else:
-    #                 continue
+
     #
     #         elif ('Income' in every_element_text)or('Monthly Income' in every_element_text):
     #             every_element.click()
