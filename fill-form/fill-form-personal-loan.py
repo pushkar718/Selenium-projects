@@ -735,3 +735,10 @@ for i in range(1, 40):
     #     screenshot.screenshot(driver.find_element(By.XPATH,"//span[contains(@style,'text-transform: capitalize')]").text+".png")
 time.sleep(2)
 driver.close()
+
+
+'''
+move section - 2 in section - 1 
+and test forms 
+recorect screenshot of thank you div
+'''
