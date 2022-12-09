@@ -13,7 +13,7 @@ import time
 import pyautogui as py
 
 
-all_personal_file=open("All_personal_data.txt","w")
+# all_personal_file=open("All_personal_data.txt","w")
 name=NameGenerator.generator()
 list_name=name.split()
 pan_card=PanGenerator.generator(name)
