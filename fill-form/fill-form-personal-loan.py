@@ -1,5 +1,7 @@
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
+# NoSuchWindowException
+from selenium.common.exceptions import *
 # from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
@@ -28,7 +30,7 @@ with py.hold('ctrl'):
     py.press('-')
 time.sleep(1)
 try:
-    for i in range(1, 40):
+    for i in range(2, 40):
         all_personal = driver.find_element(By.XPATH,
                                            "/html/body/div/header[2]/nav/div/ul/li[2]/div/ul/li[1]/div/ul/li[%d]/a" % (i))
         all_personal_text = all_personal.get_attribute('innerHTML')
@@ -74,7 +76,7 @@ try:
         restart=True
         while restart:
             restart=False
-            for inputs in range(2,25):
+            for inputs in range(1,25):
                 available_option = []
                 every_element = driver.find_element(By.XPATH, "(//*[contains(@class,'MuiFormControl-root')])[%d]" % (inputs))
                 every_element_text = driver.find_element(By.XPATH, "(//*[contains(@class,'MuiFormControl-root')])[%d]" % (inputs)).text
@@ -108,6 +110,7 @@ try:
                     first_name_text=driver.find_element(By.XPATH,"//*[contains(text(),'First Name')]").text
                     first_name_check=driver.find_element(By.XPATH,"//*[contains(@class,'MuiInputBase-input') and @value='']").text
                     if first_name_check=="":
+                        every_element.send_keys(Keys.CONTROL+ "a")
                         selected_name=action.send_keys(str(list_name[0]))
                         selected_name.perform()
                         print(driver.find_element(By.XPATH, "(//label[contains(@class,'MuiFormLabel-root')])[%d]"%(inputs)).text, "->","Test")
@@ -118,6 +121,8 @@ try:
                     last_name_text=driver.find_element(By.XPATH,"//label[contains(text(), 'Last') or contains(text(), 'Middle') and contains(@class,'MuiFormLabel-root')]").text
                     last_name_check = driver.find_element(By.XPATH,"//*[contains(@class,'MuiInputBase-input') and @value='']").text
                     if last_name_check=="":
+                        every_element.send_keys(Keys.CONTROL + "a")
+                        time.sleep(0.1)
                         selected_name=action.send_keys(str(list_name[1]))
                         selected_name.perform()
                         print(driver.find_element(By.XPATH, "(//label[contains(@class,'MuiFormLabel-root')])[%d]"%(inputs)).text, "->","Name")
@@ -128,6 +133,8 @@ try:
                     phone_number_text=driver.find_element(By.XPATH,"//*[contains(text(), 'Phone') or contains(text(), 'Mobile') and contains(@class,'MuiFormLabel-root')]").text
                     check_phone=driver.find_element(By.XPATH,"//*[contains(@class,'MuiInputBase-input') and @value='']").text
                     if check_phone=="":
+                        every_element.send_keys(Keys.CONTROL + "a")
+                        time.sleep(0.1)
                         selected_number=action.send_keys(int(9667484050))
                         selected_number.perform()
                         print(driver.find_element(By.XPATH, "(//label[contains(@class,'MuiFormLabel-root')])[%d]"%(inputs)).text, "->","9667484050")
@@ -138,6 +145,8 @@ try:
                     email_text=driver.find_element(By.XPATH,"//*[contains(text(),'Email')]").text
                     check_email = driver.find_element(By.XPATH,"//*[contains(@class,'MuiInputBase-input') and @value='']").text
                     if check_email=="":
+                        every_element.send_keys(Keys.CONTROL + "a")
+                        time.sleep(0.1)
                         selected_email=action.send_keys("qa@gmail.com")
                         selected_email.perform()
                         print(driver.find_element(By.XPATH, "(//label[contains(@class,'MuiFormLabel-root')])[%d]"%(inputs)).text, "->","qa@gmail.com")
@@ -374,6 +383,8 @@ try:
                     company_name_text = driver.find_element(By.XPATH, "//*[contains(text(),'Company name')or contains(text(),'Company Name')]").text
                     check_com_name = driver.find_element(By.XPATH, "//*[contains(@class,'MuiInputBase-input') and @value='']").text
                     if check_com_name == "":
+                        every_element.send_keys(Keys.CONTROL + "a")
+                        time.sleep(0.1)
                         selected_name = action.send_keys(NameGenerator.generator())
                         selected_name.perform()
                         print(driver.find_element(By.XPATH,"(//label[contains(@class,'MuiFormLabel-root')])[%d]" % (inputs)).text, "->",NameGenerator.generator())
@@ -585,11 +596,7 @@ try:
 
     time.sleep(2)
     driver.close()
-except NoSuchElementException:
+except (NoSuchElementException,NoSuchWindowException):
     print("Something unusual happened")
-
-'''
-move section - 2 in section - 1 
-and test forms 
-recorect screenshot of thank you div
-'''
+except:
+    print("Something unusual happened")
