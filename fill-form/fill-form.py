@@ -1,3 +1,5 @@
+import string
+
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
@@ -31,6 +33,13 @@ if (form_name=='') or (form_name==None):
 else:
     print("Choosen name = ",form_name)
 form_name=form_name.lower()
+
+with py.hold('ctrl'):
+    py.press('-')
+    py.press('-')
+    py.press('-')
+    py.press('-')
+    py.press('-')
 for loop in range(1,500):
     all_element=driver.find_element(By.XPATH,"(//a[@tabindex='-1'])[%d]"%(loop))
     all_element_url=all_element.get_attribute('href')
@@ -41,9 +50,10 @@ for loop in range(1,500):
         break
 print("First URL found:","\n",all_element_url.replace("?utm_source=direct_visitors&utm_medium=self&utm_campaign=&utm_id=",''))
 time.sleep(1.5)
+scroll_form = driver.find_element(By.XPATH, "(//*[@id='apply-banner'])[1]")
 driver.find_element(By.TAG_NAME,'body').send_keys(Keys.CONTROL + Keys.HOME)
 time.sleep(0.2)
-driver.execute_script("window.scrollBy(0,200)","")
+driver.execute_script("arguments[0].scrollIntoView();", scroll_form)
 full_name=driver.find_element(By.XPATH,"//input[@class='MuiInputBase-input MuiInput-input' and @name='full_name']")
 action.move_to_element(full_name).perform()
 full_name.click()
@@ -70,7 +80,7 @@ time.sleep(0.8)
 last_element_text=driver.find_element(By.XPATH,"(//*[contains(@class,'MuiFormControl-root')])[last()]").text
 driver.find_element(By.TAG_NAME,'body').send_keys(Keys.CONTROL + Keys.HOME)
 time.sleep(0.2)
-driver.execute_script("window.scrollBy(0,350)","")
+driver.execute_script("arguments[0].scrollIntoView();", scroll_form)
 restart=True
 while restart:
     restart=False
@@ -364,7 +374,7 @@ while restart:
     submit_button=driver.find_element(By.XPATH,"//button[@class='mt-4']")
     submit_button.click()
     time.sleep(1.2)
-    if (driver.find_element(By.XPATH,"//h3[contains(text(),'Professional')] or contains(text(),'Other') or contains(text(),'Details')").is_displayed()==True):
+    if (driver.find_element(By.XPATH,"//h3[contains(text(),'Professional') or contains(text(),'Other') or contains(text(),'Details')]").is_displayed()==True):
         print("-"*5,"Professional Details","-"*5)
         restart=True
         break
