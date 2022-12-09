@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
+import datetime
 
 try:
     chrome_options=Options()
@@ -19,6 +20,10 @@ try:
     less = open("less_than_5_faq.txt", "w")
     more = open("more_than_5_faq.txt", "w")
     page_count=0
+    today_date=datetime.date.today()
+    print(today_date)
+    less.write("Last checked on: %s"%(today_date.strftime("%d-%B-%Y"))+"\n\n")
+    more.write("Last checked on: %s"%(today_date.strftime("%d-%B-%Y"))+"\n\n")
     for b in range(1, 500):
         try:
             count = 0
