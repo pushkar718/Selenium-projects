@@ -1,5 +1,3 @@
-import string
-
 from selenium import webdriver
 import selenium.common.exceptions
 from selenium.webdriver.support.ui import Select
@@ -935,7 +933,6 @@ while True:
                         py.press('+')
                         py.press('+')
                         py.press('+')
-                        py.press('+')
                     driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.CONTROL + Keys.HOME)
                     time.sleep(0.2)
                     driver.execute_script("arguments[0].scrollIntoView();", scroll_form)
@@ -953,7 +950,7 @@ while True:
     except NoSuchElementException as e:
         print("Something unusual happened")
         print(e)
-    # except:
-    #     print("Something unusual happened")
+    except:
+        print("Something unusual happened")
 time.sleep(2)
 driver.close()
