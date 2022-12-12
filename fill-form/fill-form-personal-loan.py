@@ -44,6 +44,7 @@ try:
         print("Filling",all_personal_text,"Form\n\n")
         # all_personal_file.write("Filling %s Form\n"%(all_personal_text))
         driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.CONTROL + Keys.HOME)
+
         # print (driver.find_element(By.XPATH,"//div[@class='register']"))
             # print(driver.find_element(By.XPATH,"//div[@class='register']/h2").get_attribute('innerHTML'))
         time.sleep(0.2)
