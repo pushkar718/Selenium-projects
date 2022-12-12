@@ -1,6 +1,5 @@
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
-# NoSuchWindowException
 from selenium.common.exceptions import *
 # from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
@@ -23,13 +22,7 @@ action=ActionChains(driver)
 time.sleep(0.5)
 driver.get("https://qa.referloan.in/")
 time.sleep(3)
-# with py.hold('ctrl'):
-#     py.press('-')
-#     py.press('-')
-#     py.press('-')
-#     py.press('-')
-#     py.press('-')
-# time.sleep(1)
+
 try:
     for i in range(1, 40):
         # py.prompt("continue")
@@ -45,12 +38,14 @@ try:
         all_personal_url = all_personal.get_attribute('href')
         all_personal_last = driver.find_element(By.XPATH,"/html/body/div/header[2]/nav/div/ul/li[2]/div/ul/li[1]/div/ul/li[last()]/a").get_attribute('innerHTML')
 
-        driver.get(all_personal_url)
-        # driver.get("https://qa.referloan.in/loans/finzy-personal-loan")
+        # driver.get(all_personal_url)
+        driver.get("https://qa.referloan.in/loans/standard-chartered-bank-personal-loan")
         time.sleep(2)
         print("Filling",all_personal_text,"Form\n\n")
         # all_personal_file.write("Filling %s Form\n"%(all_personal_text))
         driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.CONTROL + Keys.HOME)
+        # print (driver.find_element(By.XPATH,"//div[@class='register']"))
+            # print(driver.find_element(By.XPATH,"//div[@class='register']/h2").get_attribute('innerHTML'))
         time.sleep(0.2)
         scroll_form = driver.find_element(By.XPATH, "(//*[@id='apply-banner'])[1]")
         driver.execute_script("arguments[0].scrollIntoView();", scroll_form)
@@ -58,7 +53,7 @@ try:
                                         "//input[@class='MuiInputBase-input MuiInput-input' and @name='full_name']")
         action.move_to_element(full_name).perform()
         full_name.click()
-        action.send_keys("name").perform()
+        action.send_keys(name).perform()
         phone_number = driver.find_element(By.XPATH,
                                            "//input[@class='MuiInputBase-input MuiInput-input' and @name='phone_no']")
         action.move_to_element(phone_number).perform()
