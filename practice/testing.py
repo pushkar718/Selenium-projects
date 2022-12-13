@@ -102,6 +102,11 @@ try:
                     time.sleep(0.2)
                     action.send_keys(int(9667484050)).perform()
                     print(element_text, "->", '9667484050')
+                elif 'address proof' in element_text.lower():
+                    element.click()
+                    time.sleep(0.2)
+                    action.send_keys(int(9667484050)).perform()
+                    print(element_text, "->", '9667484050')
                 elif 'email' in element_text.lower():
                     element.click()
                     time.sleep(0.2)
