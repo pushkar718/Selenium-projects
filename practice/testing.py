@@ -218,18 +218,18 @@ try:
                 if (driver.find_element(By.XPATH,"//*[@class='loanStep__wrapper']/descendant::*[contains(text(),'Details') or contains(text(),'Thank') or contains(text(),'detail')or contains(text(),'Other')or contains(text(),'other') or contains(text(),'Info') or contains(text(),'KYC') or contains(text(),'Customer') or contains(text(),'info')]")):
                     if 'Thank You' in driver.find_element(By.TAG_NAME, "html").text:
                         time.sleep(1000)
-                        screenshot = driver.find_element(By.XPATH, "//div[contains(@class,'jumbotron text-center')]")
-                        with py.hold('ctrl'):
-                            py.press('+')
-                            py.press('+')
+                        # screenshot = driver.find_element(By.XPATH, "//div[contains(@class,'jumbotron text-center')]")
+                        # with py.hold('ctrl'):
+                        #     py.press('+')
+                        #     py.press('+')
                             # py.press('+')
                             # py.press('+')
-                        driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.CONTROL + Keys.HOME)
-                        time.sleep(0.2)
-                        driver.execute_script("window.scrollTo(0,200)")
-                        time.sleep(0.2)
-                        screenshot.screenshot(driver.find_element(By.XPATH,"//span[contains(@style,'text-transform: capitalize')]").text + ".png")
-                        time.sleep(1)
+                        # driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.CONTROL + Keys.HOME)
+                        # time.sleep(0.2)
+                        # driver.execute_script("window.scrollTo(0,200)")
+                        # time.sleep(0.2)
+                        # screenshot.screenshot(driver.find_element(By.XPATH,"//span[contains(@style,'text-transform: capitalize')]").text + ".png")
+                        # time.sleep(1)
                         break
                     else:
                         print("-" * 5, driver.find_element(By.XPATH,"//*[@class='loanStep__wrapper']/descendant::*[contains(text(),'Details') or contains(text(),'Thank') or contains(text(),'detail')or contains(text(),'Other')or contains(text(),'other') or contains(text(),'Info') or contains(text(),'KYC') or contains(text(),'Customer') or contains(text(),'info')]").text, "-" * 5)
