@@ -924,7 +924,7 @@ while True:
             submit_button.click()
             time.sleep(4)
             if (driver.find_element(By.XPATH,
-                                    "//*[@class='loanStep__wrapper']/descendant::*[contains(text(),'Details') or contains(text(),'Thank') or contains(text(),'detail')or contains(text(),'Other')or contains(text(),'other')]")):
+                                    "//*[@class='loanStep__wrapper']/descendant-or-self::*[contains(text(),'Details') or contains(text(),'Thank') or contains(text(),'detail')or contains(text(),'Other')or contains(text(),'other')]")):
                 if 'Thank You' in driver.find_element(By.TAG_NAME, "html").text:
                     time.sleep(1)
                     screenshot = driver.find_element(By.XPATH, "//div[@class='jumbotron text-center']")
