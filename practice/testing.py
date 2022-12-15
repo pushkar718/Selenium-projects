@@ -20,8 +20,9 @@ try:
     driver.maximize_window()
     action=ActionChains(driver)
     time.sleep(0.5)
-    # temp_url="https://qa.referloan.in/loans/upward-fintech-personal-loan"
-    temp_url="https://qa.referloan.in/loans/fullerton-personal-loan"
+    temp_url="https://qa.referloan.in/loans/upward-fintech-personal-loan"
+    # temp_url="https://qa.referloan.in/loans/cashe-personal-loan"
+    # temp_url="https://qa.referloan.in/loans/fullerton-personal-loan"
     driver.get(temp_url)
     time.sleep(3)
     with py.hold('ctrl'):
@@ -57,7 +58,6 @@ try:
     otp_box = driver.find_element(By.XPATH, "//input[@id='otpCheckbox']")
     action.move_to_element(otp_box).perform()
     otp_box.click()
-
     submit_button = driver.find_element(By.XPATH, "//button[@class='mt-4']")
     action.move_to_element(submit_button).perform()
     submit_button.click()
@@ -238,7 +238,7 @@ try:
                         screenshot = driver.find_element(By.XPATH, "//div[@class='jumbotron text-center']")
                         with py.hold('ctrl'):
                             py.press('+')
-                            # py.press('+')
+                            py.press('+')
                             # py.press('+')
                             # py.press('+')
                         driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.CONTROL + Keys.HOME)
