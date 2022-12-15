@@ -21,7 +21,7 @@ try:
     more = open("more_than_5_faq.txt", "w")
     page_count=0
     today_date=datetime.date.today()
-    print(today_date)
+    # print(today_date)
     less.write("Last checked on: %s"%(today_date.strftime("%d-%B-%Y"))+"\n\n")
     more.write("Last checked on: %s"%(today_date.strftime("%d-%B-%Y"))+"\n\n")
     for b in range(1, 500):
@@ -51,7 +51,6 @@ try:
                         write = str(page_name) + " Has-> " + str(count) + " FAQs\n"
                         more.write(write)
                     break
-
             if check_url==check_last_url:
                 break
         except NoSuchElementException:
@@ -62,6 +61,8 @@ try:
     less.close()
     more.close()
     print("\n\nChecked", page_count, "Pages..! and created files successfully")
+    more.write("\n\nChecked" + str(page_count) + "Pages..! and created files successfully")
+    less.write("\n\nChecked" + str(page_count) + "Pages..! and created files successfully")
     driver.close()
 except KeyboardInterrupt:
     print("Stopped by user")
