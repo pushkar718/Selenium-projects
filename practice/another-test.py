@@ -17,7 +17,7 @@ try:
             subprocess.Popen(['notify-send', "QA IS DOWN"])
             time.sleep(60)
         else:
-            subprocess.Popen(['notify-send', "QA REFERLOAN IS UP, GET BACK TO WORK"])
+            subprocess.Popen(['notify-send', "QA REFERLOAN IS WORKING AGAIN"])
             time.sleep(60)
 except KeyboardInterrupt:
     print("Stopped by user, bye bye")
