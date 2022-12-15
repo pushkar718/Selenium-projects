@@ -18,8 +18,8 @@ try:
     driver.maximize_window()
     action=ActionChains(driver)
     time.sleep(0.5)
-    # temp_url="https://qa.referloan.in/loans/upward-fintech-personal-loan"
-    temp_url="https://qa.referloan.in/loans/cashe-personal-loan"
+    temp_url="https://qa.referloan.in/loans/upward-fintech-personal-loan"
+    # temp_url="https://qa.referloan.in/loans/cashe-personal-loan"
     # temp_url="https://qa.referloan.in/loans/fullerton-personal-loan"
     driver.get(temp_url)
     time.sleep(3)
@@ -240,3 +240,5 @@ except Exception as e:
     time.sleep(200)
     print(e)
     driver.close()
+except KeyboardInterrupt:
+    print("Stopped by user")
