@@ -20,6 +20,7 @@ try:
     driver.maximize_window()
     action=ActionChains(driver)
     time.sleep(0.5)
+    # temp_url="https://qa.referloan.in/loans/upward-fintech-personal-loan"
     temp_url="https://qa.referloan.in/loans/fullerton-personal-loan"
     driver.get(temp_url)
     time.sleep(3)
@@ -82,153 +83,152 @@ try:
             element_last = driver.find_element(By.XPATH,"(//*[contains(@class,'MuiFormControl-root')])[last()]/descendant-or-self::*")
             element_inner = element.get_attribute('innerHTML')
             element_text = element.text
-            print(element_text,"DEBUG")
-            if 'select' in element_inner:
-                element.click()
-                time.sleep(0.3)
-                all_options = driver.find_element(By.XPATH, "//li[contains(@class,'MuiButtonBase-root')]")
-                all_options_text = driver.find_element(By.XPATH, "//li[contains(@class,'MuiButtonBase-root')]").text
-                all_options_last = driver.find_element(By.XPATH, "(//li[contains(@class,'MuiButtonBase-root')])[last()]").text
-                for input in range(1, 50):
-                    all_options_text = driver.find_element(By.XPATH,"(//li[contains(@class,'MuiButtonBase-root')])[%d]" % (input)).text
-                    available_option.append(all_options_text)
-                    for select_option in available_option:
-                        if 'select option' in select_option.lower():
-                            available_option.remove(select_option)
-                    # print(available_option,"DEBUG")
 
-                    if all_options_text == all_options_last:
+            if 'select' in element_inner:
+                if element.is_displayed() == True:
+                    # print(element_inner,"DROPDOWN")
+                    element.click()
+                    # time.sleep(0.3)
+                    all_options = driver.find_element(By.XPATH, "//li[contains(@class,'MuiButtonBase-root')]")
+                    all_options_text = driver.find_element(By.XPATH, "//li[contains(@class,'MuiButtonBase-root')]").text
+                    all_options_last = driver.find_element(By.XPATH, "(//li[contains(@class,'MuiButtonBase-root')])[last()]").text
+                    for input in range(1, 50):
+                        all_options_text = driver.find_element(By.XPATH,"(//li[contains(@class,'MuiButtonBase-root')])[%d]" % (input)).text
+                        available_option.append(all_options_text)
                         for select_option in available_option:
                             if 'select option' in select_option.lower():
                                 available_option.remove(select_option)
-                        # print(available_option, "DEBUG")
-                        selected_option = random.choice(available_option)
-                        options=(driver.find_element(By.XPATH,"//ul/li/em[text()='"+selected_option+"']"))
-                        options.click()
-                        print(element_text,"->", selected_option)
-                        break
+                        # print(available_option,"DEBUG")
+
+                        if all_options_text == all_options_last:
+                            for select_option in available_option:
+                                if 'select option' in select_option.lower():
+                                    available_option.remove(select_option)
+                            # print(available_option, "DEBUG")
+                            selected_option = random.choice(available_option)
+                            options=(driver.find_element(By.XPATH,"//ul/li/em[text()='"+selected_option+"']"))
+                            options.click()
+                            print(element_text,"->", selected_option)
+                            break
             elif 'input' in element_inner:
-                if ('mobile' in element_text.lower())or('phone' in element_text.lower()):
-                    element.click()
-                    action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
+                if element.is_displayed()==True:
+                    # print(element_inner, "INPUT")
+                    if ('mobile' in element_text.lower())or('phone' in element_text.lower()):
+                        element.click()
+                        action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
 
-                    action.send_keys(int(9667484050)).perform()
-                    print(element_text, "->", '9667484050')
-                elif 'address proof' in element_text.lower():
-                    element.click()
-                    action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
+                        action.send_keys(int(9667484050)).perform()
+                        print(element_text, "->", '9667484050')
+                    elif 'address proof' in element_text.lower():
+                        element.click()
+                        action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
 
-                    action.send_keys(int(9667484050)).perform()
-                    print(element_text, "->", '9667484050')
-                elif 'email' in element_text.lower():
-                    element.click()
-                    action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
+                        action.send_keys(int(9667484050)).perform()
+                        print(element_text, "->", '9667484050')
+                    elif 'email' in element_text.lower():
+                        element.click()
+                        action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
 
-                    action.send_keys("qa@qa.com").perform()
-                    print(element_text, "->", 'qa@qa.com')
-                elif ('bank name' in element_text.lower())or('bank code' in element_text.lower()):
-                    element.click()
-                    action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
+                        action.send_keys("qa@qa.com").perform()
+                        print(element_text, "->", 'qa@qa.com')
+                    elif ('bank name' in element_text.lower())or('bank code' in element_text.lower()):
+                        element.click()
+                        action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
 
-                    action.send_keys("IDFC").perform()
-                    print(element_text, "->", "IDFC")
-                elif 'first name' in element_text.lower():
-                    element.click()
-                    action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
+                        action.send_keys("IDFC").perform()
+                        print(element_text, "->", "IDFC")
+                    elif 'first name' in element_text.lower():
+                        element.click()
+                        action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
 
-                    action.send_keys(list_name[0]).perform()
-                    print(element_text, "->", list_name[0])
-                elif ('last name' in element_text.lower())or('middle name' in element_text.lower()):
-                    element.click()
-                    action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
+                        action.send_keys(list_name[0]).perform()
+                        print(element_text, "->", list_name[0])
+                    elif ('last name' in element_text.lower())or('middle name' in element_text.lower()):
+                        element.click()
+                        action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
 
-                    action.send_keys(list_name[1]).perform()
-                    print(element_text, "->", list_name[1])
-                elif ('full name' in element_text.lower())or('name' in element_text.lower()):
-                    element.click()
-                    action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
+                        action.send_keys(list_name[1]).perform()
+                        print(element_text, "->", list_name[1])
+                    elif ('full name' in element_text.lower())or('name' in element_text.lower()):
+                        element.click()
+                        action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
 
-                    action.send_keys(name).perform()
-                    print(element_text, "->", name)
-                elif ('amount' in element_text.lower())or('pincode' in element_text.lower())or('salary' in element_text.lower())or('income' in element_text.lower()):
-                    element.click()
-                    action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
+                        action.send_keys(name).perform()
+                        print(element_text, "->", name)
+                    elif ('amount' in element_text.lower())or('pincode' in element_text.lower())or('salary' in element_text.lower())or('income' in element_text.lower()):
+                        element.click()
+                        action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
 
-                    action.send_keys(random_number).perform()
-                    print(element_text, "->", random_number)
-                elif ('months at' in element_text.lower())or('exp' in element_text.lower())or('tenure' in element_text.lower()):
-                    element.click()
-                    action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
+                        action.send_keys(random_number).perform()
+                        print(element_text, "->", random_number)
+                    elif ('months at' in element_text.lower())or('exp' in element_text.lower())or('tenure' in element_text.lower()):
+                        element.click()
+                        action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
 
-                    action.send_keys("8").perform()
-                    print(element_text, "->", "8")
-                elif ('address' in element_text.lower())or('landmark' in element_text.lower())or('street' in element_text.lower())or('house' in element_text.lower())or('land mark' in element_text.lower()):
-                    element.click()
-                    action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
-                    action.send_keys("Dummy Address 123").perform()
-                    print(element_text, "->", "Dummy Address 123")
-                elif 'landmark' in element_text.lower():
-                    element.click()
-                    action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
-                    action.send_keys("Dummy Address 123").perform()
-                    print(element_text, "->", "Dummy Address 123")
-                elif ('city' in element_text.lower())or('state' in element_text.lower()):
-                    element.click()
-                    action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
-                    action.send_keys("Delhi").perform()
-                    print(element_text, "->", "Delhi")
-                elif ('pan' in element_text.lower())or('pancard' in element_text.lower()):
-                    element.click()
-                    action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
+                        action.send_keys("8").perform()
+                        print(element_text, "->", "8")
+                    elif ('address' in element_text.lower())or('landmark' in element_text.lower())or('street' in element_text.lower())or('house' in element_text.lower())or('land mark' in element_text.lower()):
+                        element.click()
+                        action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
+                        action.send_keys("Dummy Address 123").perform()
+                        print(element_text, "->", "Dummy Address 123")
+                    elif ('city' in element_text.lower())or('state' in element_text.lower()):
+                        element.click()
+                        action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
+                        action.send_keys("Delhi").perform()
+                        print(element_text, "->", "Delhi")
+                    elif ('pan' in element_text.lower())or('pancard' in element_text.lower()):
+                        element.click()
+                        action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
 
-                    action.send_keys(pan_card).perform()
-                    print(element_text, "->", pan_card)
-                elif ('document number' in element_text.lower())or('number' in element_text.lower())or('aadhaar' in element_text.lower()):
-                    element.click()
-                    action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
+                        action.send_keys(pan_card).perform()
+                        print(element_text, "->", pan_card)
+                    elif ('document number' in element_text.lower())or('number' in element_text.lower())or('aadhaar' in element_text.lower()):
+                        element.click()
+                        action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
 
-                    action.send_keys("562453123535").perform()
-                    print(element_text, "->", "562453123535")
-                elif 'ifsc' in element_text.lower():
-                    element.click()
-                    action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
+                        action.send_keys("562453123535").perform()
+                        print(element_text, "->", "562453123535")
+                    elif 'ifsc' in element_text.lower():
+                        element.click()
+                        action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
 
-                    action.send_keys("IDFC00002012").perform()
-                    print(element_text, "->", "IDFC00002012")
-                elif 'type' in element_text.lower():
-                    element.click()
-                    action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
+                        action.send_keys("IDFC00002012").perform()
+                        print(element_text, "->", "IDFC00002012")
+                    elif 'type' in element_text.lower():
+                        element.click()
+                        action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
 
-                    action.send_keys("Dummy Type").perform()
-                    print(element_text, "->", "Dummy Type")
-                elif 'care of' in element_text.lower():
-                    element.click()
-                    action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
+                        action.send_keys("Dummy Type").perform()
+                        print(element_text, "->", "Dummy Type")
+                    elif 'care of' in element_text.lower():
+                        element.click()
+                        action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
 
-                    action.send_keys("Dummy Care").perform()
-                    print(element_text, "->", "Dummy Care")
+                        action.send_keys("Dummy Care").perform()
+                        print(element_text, "->", "Dummy Care")
 
-                elif ('date' in element_text.lower()) or ('birth' in element_text.lower()) or('dob' in element_text.lower()):
-                    element.click()
-                    action.double_click(element).perform()
-                    dob_check = driver.find_element(By.XPATH,"//*[contains(@class,'MuiInputBase-input') and @value='']").text
-                    if dob_check == "":
-                        final_dob = "10" + "10" + str(random.randint(1960, 2000))
-                        if len(final_dob) <= 7:
-                            final_dob = '0' + final_dob
-                            if len(final_dob) == 7:
-                                final_dob = final_dob[:2] + '0' + final_dob[2:]
-                                final_dob = int(final_dob)
-                                action.send_keys(final_dob).perform()
+                    elif ('date' in element_text.lower()) or ('birth' in element_text.lower()) or('dob' in element_text.lower()):
+                        element.click()
+                        action.double_click(element).perform()
+                        dob_check = driver.find_element(By.XPATH,"//*[contains(@class,'MuiInputBase-input') and @value='']").text
+                        if dob_check == "":
+                            final_dob = "10" + "10" + str(random.randint(1960, 2000))
+                            if len(final_dob) <= 7:
+                                final_dob = '0' + final_dob
+                                if len(final_dob) == 7:
+                                    final_dob = final_dob[:2] + '0' + final_dob[2:]
+                                    final_dob = int(final_dob)
+                                    action.send_keys(final_dob).perform()
+                                else:
+                                    final_dob = int(final_dob)
+                                    action.send_keys(final_dob).perform()
                             else:
                                 final_dob = int(final_dob)
                                 action.send_keys(final_dob).perform()
+                            print(element_text,"->", final_dob)
                         else:
-                            final_dob = int(final_dob)
-                            action.send_keys(final_dob).perform()
-                        print(element_text,"->", final_dob)
-                    else:
-                        continue
+                            continue
             if element == element_last:
                 driver.find_element(By.XPATH,"//button[@class='mt-4']").click()
                 time.sleep(1)
