@@ -11,13 +11,16 @@ driver=webdriver.Chrome(options=chrome_options)
 driver.maximize_window()
 try:
     while True:
-        driver.get("https://qa.referloan.in")
-        time.sleep(2)
-        if 'Refer' not in driver.title:
-            subprocess.Popen(['notify-send', "QA IS DOWN"])
-            time.sleep(60)
-        else:
-            subprocess.Popen(['notify-send', "QA REFERLOAN IS WORKING AGAIN"])
-            time.sleep(60)
+        for i in range(0,1000):
+            driver.get("https://qa.referloan.in")
+            time.sleep(2)
+            if 'Refer' not in driver.title:
+                subprocess.Popen(['notify-send', "QA IS DOWN"])
+                time.sleep(60)
+                break
+            else:
+                if i<=1:
+                    subprocess.Popen(['notify-send', "QA REFERLOAN IS WORKING AGAIN"])
+                    time.sleep(60)
 except KeyboardInterrupt:
     print("Stopped by user, bye bye")
