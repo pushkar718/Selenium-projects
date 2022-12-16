@@ -18,9 +18,9 @@ try:
     driver.maximize_window()
     action=ActionChains(driver)
     time.sleep(0.5)
-    # temp_url="https://qa.referloan.in/loans/cashe-personal-loan"
+    temp_url="https://qa.referloan.in/loans/cashe-personal-loan"
     # temp_url="https://qa.referloan.in/loans/fullerton-personal-loan"
-    temp_url="https://qa.referloan.in/loans/finzy-personal-loan"
+    # temp_url="https://qa.referloan.in/loans/finzy-personal-loan"
     # temp_url = "https://qa.referloan.in/credit-card/au-bank-credit-card"
     driver.get(temp_url)
     time.sleep(3)
@@ -235,19 +235,20 @@ try:
                 time.sleep(1)
                 if (driver.find_element(By.XPATH,"//*[@class='loanStep__wrapper']/descendant::*[contains(text(),'Details') or contains(text(),'Thank') or contains(text(),'detail')or contains(text(),'Other')or contains(text(),'other') or contains(text(),'Info') or contains(text(),'KYC') or contains(text(),'Customer') or contains(text(),'info')]")):
                     if 'Thank You' in driver.find_element(By.TAG_NAME, "html").text:
+                        screenshot = driver.find_element(By.XPATH, "/html/body/div/div/section[1]/div[2]/div")
+                        with py.hold('ctrl'):
+                            py.press('+')
+                            py.press('+')
+                            py.press('+')
+                            py.press('+')
+                        driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.CONTROL + Keys.HOME)
+                        time.sleep(0.2)
+                        driver.execute_script("window.scrollTo(0,200)")
+                        time.sleep(0.8)
+                        screenshot.screenshot(driver.find_element(By.XPATH,"//span[contains(@style,'text-transform: capitalize')]").text + ".png")
+                        print("-" * 5, driver.find_element(By.XPATH,"//*[@class='loanStep__wrapper']/descendant::*[contains(text(),'Details') or contains(text(),'Thank') or contains(text(),'detail')or contains(text(),'Other')or contains(text(),'other') or contains(text(),'Info') or contains(text(),'KYC') or contains(text(),'Customer') or contains(text(),'info')]").text,"-" * 5)
+
                         time.sleep(1000)
-                        # screenshot = driver.find_element(By.XPATH, "//div[contains(@class,'jumbotron text-center')]")
-                        # with py.hold('ctrl'):
-                        #     py.press('+')
-                        #     py.press('+')
-                            # py.press('+')
-                            # py.press('+')
-                        # driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.CONTROL + Keys.HOME)
-                        # time.sleep(0.2)
-                        # driver.execute_script("window.scrollTo(0,200)")
-                        # time.sleep(0.2)
-                        # screenshot.screenshot(driver.find_element(By.XPATH,"//span[contains(@style,'text-transform: capitalize')]").text + ".png")
-                        # time.sleep(1)
                         break
                     else:
                         print("-" * 5, driver.find_element(By.XPATH,"//*[@class='loanStep__wrapper']/descendant::*[contains(text(),'Details') or contains(text(),'Thank') or contains(text(),'detail')or contains(text(),'Other')or contains(text(),'other') or contains(text(),'Info') or contains(text(),'KYC') or contains(text(),'Customer') or contains(text(),'info')]").text, "-" * 5)
@@ -256,6 +257,8 @@ try:
 
 except KeyboardInterrupt:
     print("\n\nStopped by user..!")
+except NoSuchWindowException:
+    print("Window already closed")
 except:
     time.sleep(2000)
     # print(e)
