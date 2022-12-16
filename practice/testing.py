@@ -11,6 +11,8 @@ import pyautogui as py
 
 
 try:
+    final_dob = "10" + "10" + str(random.randint(1980, 2000))
+    test_number='9667484050'
     name=NameGenerator.generator()
     list_name=name.split()
     pan_card=PanGenerator.generator(name)
@@ -52,7 +54,7 @@ try:
     phone_number = driver.find_element(By.XPATH,"//input[@class='MuiInputBase-input MuiInput-input' and @name='phone_no']")
     action.move_to_element(phone_number).perform()
     phone_number.click()
-    action.send_keys(9667484050).perform()
+    action.send_keys(test_number).perform()
     otp_box = driver.find_element(By.XPATH, "//input[@id='otpCheckbox']")
     action.move_to_element(otp_box).perform()
     otp_box.click()
@@ -110,19 +112,19 @@ try:
                     if ('office mobile' in element_text.lower())or('office phone' in element_text.lower()):
                         element.click()
                         action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
-                        action.send_keys('09667484050').perform()
-                        time.sleep(1)
-                        print(element_text, "->", '09667484050')
+                        action.send_keys('0'+test_number).perform()
+                        # time.sleep(1)
+                        print(element_text, "->", '0'+test_number)
                     elif ('mobile' in element_text.lower())or('phone' in element_text.lower()):
                         element.click()
                         action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
-                        action.send_keys(9667484050).perform()
-                        print(element_text, "->", '9667484050')
+                        action.send_keys(test_number).perform()
+                        print(element_text, "->", 'test_number')
                     elif 'address proof' in element_text.lower():
                         element.click()
                         action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
-                        action.send_keys(9667484050).perform()
-                        print(element_text, "->", '9667484050')
+                        action.send_keys(test_number).perform()
+                        print(element_text, "->", 'test_number')
                     elif 'email' in element_text.lower():
                         element.click()
                         action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
@@ -214,25 +216,13 @@ try:
                         action.double_click(element).perform()
                         dob_check = driver.find_element(By.XPATH,"//*[contains(@class,'MuiInputBase-input') and @value='']").text
                         if dob_check == "":
-                            final_dob = "10" + "10" + str(random.randint(1960, 2000))
-                            if len(final_dob) <= 7:
-                                final_dob = '0' + final_dob
-                                if len(final_dob) == 7:
-                                    final_dob = final_dob[:2] + '0' + final_dob[2:]
-                                    final_dob = int(final_dob)
-                                    action.send_keys(final_dob).perform()
-                                else:
-                                    final_dob = int(final_dob)
-                                    action.send_keys(final_dob).perform()
-                            else:
-                                final_dob = int(final_dob)
-                                action.send_keys(final_dob).perform()
+                            action.send_keys(final_dob).perform()
                             print(element_text,"->", final_dob)
                         else:
                             continue
             if element == element_last:
                 driver.find_element(By.XPATH,"//button[@class='mt-4']").click()
-                time.sleep(1)
+                time.sleep(2)
                 if (driver.find_element(By.XPATH,"//*[@class='loanStep__wrapper']/descendant::*[contains(text(),'Details') or contains(text(),'Thank') or contains(text(),'detail')or contains(text(),'Other')or contains(text(),'other') or contains(text(),'Info') or contains(text(),'KYC') or contains(text(),'Customer') or contains(text(),'info')]")):
                     if 'Thank You' in driver.find_element(By.TAG_NAME, "html").text:
                         # screenshot = driver.find_element(By.XPATH, "/html/body/div/div/section[1]/div[2]/div")
