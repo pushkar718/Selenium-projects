@@ -8,11 +8,6 @@ import NameGenerator
 import PanGenerator
 import time
 import pyautogui as py
-# url.py = "https://hooks.slack.com/services/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"
-        # webhook = WebhookClient(url.py)
-        # response = webhook.send(text="Hello Brother")
-        # assert response.status_code == 200
-        # assert response.body == "ok"
 
 
 try:
@@ -25,7 +20,8 @@ try:
     time.sleep(0.5)
     # temp_url="https://qa.referloan.in/loans/cashe-personal-loan"
     # temp_url="https://qa.referloan.in/loans/fullerton-personal-loan"
-    temp_url = "https://qa.referloan.in/credit-card/au-bank-credit-card"
+    temp_url="https://qa.referloan.in/loans/finzy-personal-loan"
+    # temp_url = "https://qa.referloan.in/credit-card/au-bank-credit-card"
     driver.get(temp_url)
     time.sleep(3)
     with py.hold('ctrl'):
@@ -137,6 +133,17 @@ try:
                         action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
                         action.send_keys("IDFC").perform()
                         print(element_text, "->", "IDFC")
+                    elif ('credit bureau' in element_text.lower()):
+                        element.click()
+                        action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
+                        action.send_keys("Equifax").perform()
+                        print(element_text, "->", "Equifax")
+                    elif ('credit score' in element_text.lower()):
+                        random_number=random.randint(650,850)
+                        element.click()
+                        action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
+                        action.send_keys(random_number).perform()
+                        print(element_text, "->", random_number)
                     elif 'first name' in element_text.lower():
                         element.click()
                         action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
@@ -147,12 +154,12 @@ try:
                         action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
                         action.send_keys(list_name[1]).perform()
                         print(element_text, "->", list_name[1])
-                    elif ('full name' in element_text.lower())or('name' in element_text.lower()):
+                    elif ('full name' in element_text.lower())or('name' in element_text.lower())or('company *' in element_text.lower()):
                         element.click()
                         action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
                         action.send_keys(name).perform()
                         print(element_text, "->", name)
-                    elif ('amount' in element_text.lower())or('pincode' in element_text.lower())or('salary' in element_text.lower())or('income' in element_text.lower()):
+                    elif ('amount' in element_text.lower())or('pincode' in element_text.lower())or('rent' in element_text.lower())or('emi' in element_text.lower())or('salary' in element_text.lower())or('income' in element_text.lower()):
                         element.click()
                         action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
                         action.send_keys(random_number).perform()
@@ -172,11 +179,6 @@ try:
                         action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
                         action.send_keys("Delhi").perform()
                         print(element_text, "->", "Delhi")
-                    elif ('pan' in element_text.lower())or('pancard' in element_text.lower()):
-                        element.click()
-                        action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
-                        action.send_keys(pan_card).perform()
-                        print(element_text, "->", pan_card)
                     elif ('document number' in element_text.lower())or('number' in element_text.lower())or('aadhaar' in element_text.lower()):
                         element.click()
                         action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
@@ -202,6 +204,11 @@ try:
                         action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
                         action.send_keys("Delhi").perform()
                         print(element_text, "->", "Delhi")
+                    elif ('pan' in element_text.lower())or('pancard' in element_text.lower()):
+                        element.click()
+                        action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
+                        action.send_keys(pan_card).perform()
+                        print(element_text, "->", pan_card)
                     elif ('date' in element_text.lower()) or ('birth' in element_text.lower()) or('dob' in element_text.lower()):
                         element.click()
                         action.double_click(element).perform()
@@ -248,7 +255,7 @@ try:
                 break
 
 except KeyboardInterrupt:
-    print("Stopped by user..!")
+    print("\n\nStopped by user..!")
 except:
     time.sleep(2000)
     # print(e)
