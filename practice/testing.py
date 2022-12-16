@@ -18,8 +18,7 @@ try:
     driver.maximize_window()
     action=ActionChains(driver)
     time.sleep(0.5)
-    temp_url="https://qa.referloan.in/loans/upward-fintech-personal-loan"
-    # temp_url="https://qa.referloan.in/loans/cashe-personal-loan"
+    temp_url="https://qa.referloan.in/loans/cashe-personal-loan"
     # temp_url="https://qa.referloan.in/loans/fullerton-personal-loan"
     driver.get(temp_url)
     time.sleep(3)
@@ -51,7 +50,7 @@ try:
     phone_number = driver.find_element(By.XPATH,"//input[@class='MuiInputBase-input MuiInput-input' and @name='phone_no']")
     action.move_to_element(phone_number).perform()
     phone_number.click()
-    action.send_keys(int(9667484050)).perform()
+    action.send_keys(9667484050).perform()
     otp_box = driver.find_element(By.XPATH, "//input[@id='otpCheckbox']")
     action.move_to_element(otp_box).perform()
     otp_box.click()
@@ -109,18 +108,18 @@ try:
                     if ('mobile' in element_text.lower())or('phone' in element_text.lower()):
                         element.click()
                         action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
-                        action.send_keys(int(9667484050)).perform()
+                        action.send_keys(9667484050).perform()
                         print(element_text, "->", '9667484050')
                     elif 'address proof' in element_text.lower():
                         element.click()
                         action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
-                        action.send_keys(int(9667484050)).perform()
+                        action.send_keys(9667484050).perform()
                         print(element_text, "->", '9667484050')
                     elif 'email' in element_text.lower():
                         element.click()
                         action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
-                        action.send_keys("qa@qa.com").perform()
-                        print(element_text, "->", 'qa@qa.com')
+                        action.send_keys("tester123@gmail.com").perform()
+                        print(element_text, "->", 'tester123@gmail.com')
                     elif ('bank name' in element_text.lower())or('bank code' in element_text.lower()):
                         element.click()
                         action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
@@ -174,8 +173,8 @@ try:
                     elif 'ifsc' in element_text.lower():
                         element.click()
                         action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
-                        action.send_keys("IDFC00002012").perform()
-                        print(element_text, "->", "IDFC00002012")
+                        action.send_keys("IDFB0020158").perform()
+                        print(element_text, "->", "IDFB0020158")
                     elif 'type' in element_text.lower():
                         element.click()
                         action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
@@ -237,8 +236,8 @@ try:
                 break
 
 except Exception as e:
-    time.sleep(200)
-    print(e)
-    driver.close()
+    time.sleep(2000)
+    # print(e)
+    # driver.close()
 except KeyboardInterrupt:
     print("Stopped by user")
