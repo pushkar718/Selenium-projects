@@ -18,8 +18,8 @@ try:
     driver.maximize_window()
     action=ActionChains(driver)
     time.sleep(0.5)
-    temp_url="https://qa.referloan.in/loans/cashe-personal-loan"
-    # temp_url="https://qa.referloan.in/loans/fullerton-personal-loan"
+    # temp_url="https://qa.referloan.in/loans/cashe-personal-loan"
+    temp_url="https://qa.referloan.in/loans/fullerton-personal-loan"
     driver.get(temp_url)
     time.sleep(3)
     with py.hold('ctrl'):
@@ -105,7 +105,13 @@ try:
             elif 'input' in element_inner:
                 if element.is_displayed()==True:
                     # print(element_inner, "INPUT")
-                    if ('mobile' in element_text.lower())or('phone' in element_text.lower()):
+                    if ('office mobile' in element_text.lower())or('office phone' in element_text.lower()):
+                        element.click()
+                        action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
+                        action.send_keys('09667484050').perform()
+                        time.sleep(1)
+                        print(element_text, "->", '09667484050')
+                    elif ('mobile' in element_text.lower())or('phone' in element_text.lower()):
                         element.click()
                         action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
                         action.send_keys(9667484050).perform()
@@ -235,9 +241,9 @@ try:
                 restart = True
                 break
 
-except Exception as e:
+except KeyboardInterrupt:
+    print("Stopped by user..!")
+except:
     time.sleep(2000)
     # print(e)
     # driver.close()
-except KeyboardInterrupt:
-    print("Stopped by user")
