@@ -8,6 +8,11 @@ import NameGenerator
 import PanGenerator
 import time
 import pyautogui as py
+# url.py = "https://hooks.slack.com/services/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"
+        # webhook = WebhookClient(url.py)
+        # response = webhook.send(text="Hello Brother")
+        # assert response.status_code == 200
+        # assert response.body == "ok"
 
 
 try:
@@ -19,7 +24,8 @@ try:
     action=ActionChains(driver)
     time.sleep(0.5)
     # temp_url="https://qa.referloan.in/loans/cashe-personal-loan"
-    temp_url="https://qa.referloan.in/loans/fullerton-personal-loan"
+    # temp_url="https://qa.referloan.in/loans/fullerton-personal-loan"
+    temp_url = "https://qa.referloan.in/credit-card/au-bank-credit-card"
     driver.get(temp_url)
     time.sleep(3)
     with py.hold('ctrl'):
