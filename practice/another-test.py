@@ -2,9 +2,6 @@ from selenium import webdriver
 import time
 import subprocess
 from selenium.webdriver.chrome.options import Options
-import os
-from slack_sdk import WebClient
-from slack_sdk.errors import SlackApiError
 from slack_sdk.webhook import WebhookClient
 import url
 
@@ -35,4 +32,6 @@ try:
                     response = webhook.send(text="QA REFERLOAN IS WORKING AGAIN")
                     time.sleep(60)
 except KeyboardInterrupt:
-    print("Stopped by user..!")
+    print("Stopped By User..!")
+except:
+    print("Some More Error Here")
