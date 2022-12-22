@@ -14,6 +14,7 @@ try:
     final_dob = "10" + "10" + str(random.randint(1980, 2000))
     test_number='9667484050'
     name=NameGenerator.generator()
+    temp_url=py.prompt("Enter URL: ")
     list_name=name.split()
     pan_card=PanGenerator.generator(name)
     driver=webdriver.Chrome()
@@ -22,7 +23,7 @@ try:
     time.sleep(0.5)
     # temp_url="https://qa.referloan.in/loans/ruptok-gold-loan"
     # temp_url="https://qa.referloan.in/loans/paysense-personal-loan"
-    temp_url="https://qa.referloan.in/loans/tata-capital-used-car-loan"
+    # temp_url="https://qa.referloan.in/loans/kreditbee-personal-loan"
     # temp_url = "https://qa.referloan.in/credit-card/au-bank-credit-card"
     driver.get(temp_url)
     time.sleep(3)
@@ -77,7 +78,11 @@ try:
     action.key_down(Keys.CONTROL).key_down(Keys.SHIFT).send_keys('E').key_up(Keys.SHIFT).key_up(Keys.CONTROL).perform()
     while restart:
         restart=False
+        print("-" * 5, driver.find_element(By.XPATH,
+                                           "//*[@class='loanStep__wrapper']/descendant::*[contains(text(),'Details') or contains(text(),'Thank') or contains(text(),'detail')or contains(text(),'Other')or contains(text(),'other') or contains(text(),'Info') or contains(text(),'KYC') or contains(text(),'Customer') or contains(text(),'info')]").text,
+              "-" * 5)
         for i in range(1,300):
+
             random_number=str(random.randint(100,999))+'000'
             available_option=[]
             element = driver.find_element(By.XPATH,"(//*[contains(@class,'MuiFormControl-root')])[%d]/descendant-or-self::*" % (i))
@@ -240,8 +245,8 @@ try:
 
                         time.sleep(1000)
                         break
-                    else:
-                        print("-" * 5, driver.find_element(By.XPATH,"//*[@class='loanStep__wrapper']/descendant::*[contains(text(),'Details') or contains(text(),'Thank') or contains(text(),'detail')or contains(text(),'Other')or contains(text(),'other') or contains(text(),'Info') or contains(text(),'KYC') or contains(text(),'Customer') or contains(text(),'info')]").text, "-" * 5)
+                    # else:
+                        # print("-" * 5, driver.find_element(By.XPATH,"//*[@class='loanStep__wrapper']/descendant::*[contains(text(),'Details') or contains(text(),'Thank') or contains(text(),'detail')or contains(text(),'Other')or contains(text(),'other') or contains(text(),'Info') or contains(text(),'KYC') or contains(text(),'Customer') or contains(text(),'info')]").text, "-" * 5)
                 restart = True
                 break
 
