@@ -24,6 +24,7 @@ try:
             if 'Refer' in driver.title:
                 if i<1:
                     subprocess.Popen(['notify-send', "QA REFERLOAN IS WORKING AGAIN"])
+                    response=webhook.send(text="QA REFERLOAN IS WORKING AGAIN")
                     time.sleep(60)
             else:
                 subprocess.Popen(['notify-send', "QA IS DOWN WITH STATUS CODE: %d" % response.status_code])
