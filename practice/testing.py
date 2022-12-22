@@ -20,9 +20,9 @@ try:
     driver.maximize_window()
     action=ActionChains(driver)
     time.sleep(0.5)
-    temp_url="https://qa.referloan.in/loans/cashe-personal-loan"
-    # temp_url="https://qa.referloan.in/loans/fullerton-personal-loan"
-    # temp_url="https://qa.referloan.in/loans/finzy-personal-loan"
+    # temp_url="https://qa.referloan.in/loans/ruptok-gold-loan"
+    # temp_url="https://qa.referloan.in/loans/paysense-personal-loan"
+    temp_url="https://qa.referloan.in/loans/tata-capital-used-car-loan"
     # temp_url = "https://qa.referloan.in/credit-card/au-bank-credit-card"
     driver.get(temp_url)
     time.sleep(3)
@@ -78,7 +78,7 @@ try:
     while restart:
         restart=False
         for i in range(1,300):
-            random_number=str(random.sample(range(100000,400000,1000),1))
+            random_number=str(random.randint(100,999))+'000'
             available_option=[]
             element = driver.find_element(By.XPATH,"(//*[contains(@class,'MuiFormControl-root')])[%d]/descendant-or-self::*" % (i))
             element_last = driver.find_element(By.XPATH,"(//*[contains(@class,'MuiFormControl-root')])[last()]/descendant-or-self::*")
@@ -119,12 +119,12 @@ try:
                         element.click()
                         action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
                         action.send_keys(test_number).perform()
-                        print(element_text, "->", 'test_number')
+                        print(element_text, "->", test_number)
                     elif 'address proof' in element_text.lower():
                         element.click()
                         action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
                         action.send_keys(test_number).perform()
-                        print(element_text, "->", 'test_number')
+                        print(element_text, "->", test_number)
                     elif 'email' in element_text.lower():
                         element.click()
                         action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
