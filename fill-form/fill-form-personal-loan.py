@@ -13,7 +13,7 @@ import pyautogui as py
 
 
 # all_personal_file=open("All_personal_data.txt","w")
-temp_url="https://qa.referloan.in/loans/faircent-personal-loan?utm_source=direct_visitors&utm_medium=self&utm_campaign=&utm_id="
+temp_url="https://qa.referloan.in/loans/upward-fintech-personal-loan?utm_source=direct_visitors&utm_medium=self&utm_campaign=&utm_id="
 name=NameGenerator.generator()
 list_name=name.split()
 pan_card=PanGenerator.generator(name)
