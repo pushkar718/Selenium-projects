@@ -14,6 +14,7 @@ try:
     final_dob = "10" + "10" + str(random.randint(1980, 2000))
     test_number='9667484050'
     name=NameGenerator.generator()
+    temp_url=py.prompt("Enter URL: ")
     list_name=name.split()
     pan_card=PanGenerator.generator(name)
     driver=webdriver.Chrome()
@@ -22,7 +23,7 @@ try:
     time.sleep(0.5)
     # temp_url="https://qa.referloan.in/loans/ruptok-gold-loan"
     # temp_url="https://qa.referloan.in/loans/paysense-personal-loan"
-    temp_url="https://qa.referloan.in/loans/tata-capital-used-car-loan"
+    # temp_url="https://qa.referloan.in/loans/kreditbee-personal-loan"
     # temp_url = "https://qa.referloan.in/credit-card/au-bank-credit-card"
     driver.get(temp_url)
     time.sleep(3)
@@ -77,8 +78,13 @@ try:
     action.key_down(Keys.CONTROL).key_down(Keys.SHIFT).send_keys('E').key_up(Keys.SHIFT).key_up(Keys.CONTROL).perform()
     while restart:
         restart=False
+        print("-" * 5, driver.find_element(By.XPATH,
+                                           "//*[@class='loanStep__wrapper']/descendant::*[contains(text(),'Details') or contains(text(),'Thank') or contains(text(),'detail')or contains(text(),'Other')or contains(text(),'other') or contains(text(),'Info') or contains(text(),'KYC') or contains(text(),'Customer') or contains(text(),'info')]").text,
+              "-" * 5)
         for i in range(1,300):
+
             random_number=str(random.randint(100,999))+'000'
+            random_salary=str(random.randint(50,100))+'000'
             available_option=[]
             element = driver.find_element(By.XPATH,"(//*[contains(@class,'MuiFormControl-root')])[%d]/descendant-or-self::*" % (i))
             element_last = driver.find_element(By.XPATH,"(//*[contains(@class,'MuiFormControl-root')])[last()]/descendant-or-self::*")
@@ -161,11 +167,17 @@ try:
                         action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
                         action.send_keys(name).perform()
                         print(element_text, "->", name)
-                    elif ('amount' in element_text.lower())or('pincode' in element_text.lower())or('rent' in element_text.lower())or('emi' in element_text.lower())or('salary' in element_text.lower())or('income' in element_text.lower()):
+                    elif ('amount' in element_text.lower())or('rent' in element_text.lower())or('emi' in element_text.lower())or('salary' in element_text.lower())or('income' in element_text.lower()):
+                        element.click()
+                        action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
+                        action.send_keys(random_salary).perform()
+                        print(element_text, "->", random_salary)
+                    elif ('pincode' in element_text.lower()):
                         element.click()
                         action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
                         action.send_keys(random_number).perform()
                         print(element_text, "->", random_number)
+
                     elif ('months at' in element_text.lower())or('exp' in element_text.lower())or('tenure' in element_text.lower())or('working since' in element_text.lower()):
                         element.click()
                         action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
@@ -236,17 +248,18 @@ try:
                         # driver.execute_script("window.scrollTo(0,200)")
                         # time.sleep(0.8)
                         # screenshot.screenshot(driver.find_element(By.XPATH,"//span[contains(@style,'text-transform: capitalize')]").text + ".png")
-                        # print("-" * 5, driver.find_element(By.XPATH,"//*[@class='loanStep__wrapper']/descendant::*[contains(text(),'Details') or contains(text(),'Thank') or contains(text(),'detail')or contains(text(),'Other')or contains(text(),'other') or contains(text(),'Info') or contains(text(),'KYC') or contains(text(),'Customer') or contains(text(),'info')]").text,"-" * 5)
+                        print("-" * 5, driver.find_element(By.XPATH,"//*[@class='loanStep__wrapper']/descendant::*[contains(text(),'Details') or contains(text(),'Thank') or contains(text(),'detail')or contains(text(),'Other')or contains(text(),'other') or contains(text(),'Info') or contains(text(),'KYC') or contains(text(),'Customer') or contains(text(),'info')]").text,"-" * 5)
 
-                        time.sleep(1000)
+                        time.sleep(2000)
                         break
-                    else:
-                        print("-" * 5, driver.find_element(By.XPATH,"//*[@class='loanStep__wrapper']/descendant::*[contains(text(),'Details') or contains(text(),'Thank') or contains(text(),'detail')or contains(text(),'Other')or contains(text(),'other') or contains(text(),'Info') or contains(text(),'KYC') or contains(text(),'Customer') or contains(text(),'info')]").text, "-" * 5)
+                    # else:
+                        # print("-" * 5, driver.find_element(By.XPATH,"//*[@class='loanStep__wrapper']/descendant::*[contains(text(),'Details') or contains(text(),'Thank') or contains(text(),'detail')or contains(text(),'Other')or contains(text(),'other') or contains(text(),'Info') or contains(text(),'KYC') or contains(text(),'Customer') or contains(text(),'info')]").text, "-" * 5)
                 restart = True
                 break
 
 except KeyboardInterrupt:
     print("\n\nStopped by user..!")
+    exit(1)
 except NoSuchWindowException:
     print("Window already closed")
 except:
