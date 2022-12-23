@@ -25,7 +25,9 @@ try:
                 if i<1:
                     subprocess.Popen(['notify-send', "QA REFERLOAN IS WORKING AGAIN"])
                     response=webhook.send(text="QA REFERLOAN IS WORKING AGAIN")
-                    time.sleep(6)
+                    time.sleep(60)
+                else:
+                    time.sleep(60)
             else:
                 subprocess.Popen(['notify-send', "QA IS DOWN WITH STATUS CODE: %d" % response.status_code])
                 response = webhook.send(text="QA IS DOWN")
