@@ -23,7 +23,6 @@ try:
         driver.get(check_url)
         time.sleep(1.2)
         check_banner=driver.find_element(By.XPATH,"//img[@class='p-4']").size
-        check_profile=driver.find_element(By.XPATH,"//div[@class='CardImg_box']").size
         if (check_banner["height"]==308) and (check_banner["width"]==1296):
             continue
         else:
