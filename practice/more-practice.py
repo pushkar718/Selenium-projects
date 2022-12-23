@@ -1,4 +1,21 @@
 import random
-random_number=str(random.randint(100,999))+'000'
-print(random_number)
-print(type(random_number))
+import string
+
+def generator(name):
+    letters=string.ascii_uppercase
+    numbers="01234568789"
+    final_pan=random.sample(letters,3)
+    name=name.split()
+    final_pan.append(name[1][0])
+    final_pan.append(random.sample(numbers,4))
+    final_pan.append(random.sample(letters,1))
+    new_pan=''
+    for element in final_pan:
+        if type(element) is list:
+            for item in element:
+                new_pan=new_pan+item
+        else:
+            new_pan=new_pan+element
+    # print('A'+new_pan)
+    return 'A'+new_pan
+# generator('Lorem Ipsum')

@@ -14,7 +14,7 @@ try:
     final_dob = "10" + "10" + str(random.randint(1980, 2000))
     test_number='9667484050'
     name=NameGenerator.generator()
-    # temp_url=py.prompt("Enter URL: ")
+    temp_url=py.prompt("Enter URL: ")
     list_name=name.split()
     pan_card=PanGenerator.generator(name)
     driver=webdriver.Chrome()
@@ -22,7 +22,7 @@ try:
     action=ActionChains(driver)
     time.sleep(0.5)
     # temp_url="https://qa.referloan.in/loans/ruptok-gold-loan"
-    temp_url="https://qa.referloan.in/loans/paysense-personal-loan"
+    # temp_url="https://qa.referloan.in/loans/paysense-personal-loan"
     # temp_url="https://qa.referloan.in/loans/kreditbee-personal-loan"
     # temp_url = "https://qa.referloan.in/credit-card/au-bank-credit-card"
     driver.get(temp_url)
