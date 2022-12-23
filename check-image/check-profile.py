@@ -1,10 +1,7 @@
 from selenium import webdriver
-# from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import *
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.common.exceptions import *
-import random
 import time
 
 chrome_options=Options()
@@ -15,7 +12,7 @@ action=ActionChains(driver)
 driver.maximize_window()
 driver.get("https://referloan.in")
 time.sleep(3)
-file=open("Image-not-found.txt",'w')
+no_profile=open("No-Profile.txt",'w')
 try:
     for b in range(1,500):
         check=driver.find_element(By.XPATH,"(//ul/li/a[@tabindex='-1'])[%d]"%(b))
@@ -24,21 +21,15 @@ try:
         check_url=check.get_attribute('href')
         time.sleep(0.2)
         driver.get(check_url)
-        # driver.get("https://referloan.in/credit-card/yes-bank-credit-card")
         time.sleep(1.2)
-        # check=driver.find_element(By.XPATH,"//img[@class='p-4']").text
-        check=driver.find_element(By.XPATH,"//img[@class='p-4']").size
-        # print(check)
-        if (check["height"]==308) and (check["width"]==1296):
+        check_banner=driver.find_element(By.XPATH,"//img[@class='p-4']").size
+        check_profile=driver.find_element(By.XPATH,"//div[@class='CardImg_box']").size
+        if (check_banner["height"]==214) and (check_banner["width"]==340):
             continue
-            # print("Image Found in",driver.find_element(By.XPATH,"//span[contains(@style,'text-transform')]").text)
         else:
-            print("Image Not Found in",driver.find_element(By.XPATH,"//span[contains(@style,'text-transform')]").text)
-            file.write("Image Not Found in "+driver.find_element(By.XPATH,"//span[contains(@style,'text-transform')]").text)
-            file.write("\n")
-
-        # `if check_text==check_last:
-        #     break`
+            print("Profile Not Found in",driver.find_element(By.XPATH,"//span[contains(@style,'text-transform')]").text)
+            no_banner.write("Profile Not Found in "+driver.find_element(By.XPATH,"//span[contains(@style,'text-transform')]").text)
+            no_banner.write("\n")
 except:
     time.sleep(3)
     driver.close()
