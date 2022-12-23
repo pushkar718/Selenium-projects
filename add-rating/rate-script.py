@@ -1,7 +1,7 @@
 import requests,string,random
 
 
-for i in range(0,10):
+for i in range(0,5):
     res = ''.join(random.choices(string.ascii_uppercase +string.digits, k=8))
     headers = {
         # Change testapi -> api for going on master
@@ -22,7 +22,7 @@ for i in range(0,10):
     json_data = {
         # change bank-product_id [API] for changing the product
         'bank_product_id': 127,
-        'rating': 5,
+        'rating': 4,
         'session_id': str(res),
     }
     # Change testapi -> api for going on master
