@@ -21,8 +21,7 @@ try:
         for i in range(0,1000):
             driver.refresh()
             time.sleep(2)
-            if 'Refer' in \
-                    driver.title:
+            if 'Refer' in driver.title:
                 if i<1:
                     subprocess.Popen(['notify-send', "QA REFERLOAN IS WORKING AGAIN"])
                     response=webhook.send(text="QA REFERLOAN IS WORKING AGAIN")
