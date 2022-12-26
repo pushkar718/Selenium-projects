@@ -21,7 +21,7 @@ try:
     driver.maximize_window()
     action=ActionChains(driver)
     time.sleep(0.5)
-    temp_url="https://qa.referloan.in/loans/ruptok-gold-loan"
+    temp_url="https://qa.referloan.in/loans/cashe-personal-loan"
     # temp_url="https://qa.referloan.in/loans/paysense-personal-loan"
     # temp_url="https://qa.referloan.in/loans/kreditbee-personal-loan"
     # temp_url = "https://qa.referloan.in/credit-card/au-bank-credit-card"
