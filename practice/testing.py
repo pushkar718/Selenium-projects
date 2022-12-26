@@ -106,7 +106,6 @@ try:
                             for select_option in available_option:
                                 if 'select option' in select_option.lower():
                                     available_option.remove(select_option)
-                            # print(available_option, "DEBUG")
                             selected_option = random.choice(available_option)
                             options=(driver.find_element(By.XPATH,"//ul/li/em[text()='"+selected_option+"']"))
                             options.click()
