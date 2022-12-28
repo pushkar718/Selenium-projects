@@ -4,7 +4,6 @@ import subprocess
 from selenium.webdriver.chrome.options import Options
 from slack_sdk.webhook import WebhookClient
 import url
-import requests
 
 chrome_options=Options()
 chrome_options.add_argument("--headless")
@@ -16,7 +15,6 @@ try:
     url = url.slack_url()
     webhook = WebhookClient(url)
     driver.get("https://qa.referloan.in")
-    response = requests.get("https://qa.referloan.in")
     while True:
         for i in range(0,1000):
             driver.refresh()
@@ -35,5 +33,6 @@ try:
                 break
 except KeyboardInterrupt:
     print("Stopped By User..!")
-except:
+except Exception as e:
     print("Some More Error Here")
+    print(e)
