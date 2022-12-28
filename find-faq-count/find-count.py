@@ -14,7 +14,7 @@ try:
     driver.maximize_window()
     action=ActionChains(driver)
     driver.get("https://referloan.in")
-    time.sleep(1.8)
+    time.sleep(2)
     check_last = driver.find_element(By.XPATH, "(//ul/li/a[@tabindex='-1'])[last()]")
     check_last_url=check_last.get_attribute('href')
     less = open("less_than_5_faq.txt", "w")
@@ -51,8 +51,9 @@ try:
                         write = str(page_name) + " Has-> " + str(count) + " FAQs\n"
                         more.write(write)
                     break
-            if check_url==check_last_url:
-                break
+            if check==check_last:
+                exit (1)
+
         except NoSuchElementException:
             write = str(page_name) + " Has-> " + str(count) + " FAQs\n"
             less.write(write)
@@ -67,6 +68,7 @@ try:
 except KeyboardInterrupt:
     print("Stopped by user")
     exit(1)
-except:
+except Exception as e :
     print("Other Errors")
+    print(e)
     exit(1)

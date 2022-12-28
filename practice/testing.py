@@ -30,7 +30,6 @@ with py.hold('ctrl'):
     py.press('-')
     py.press('-')
 try:
-    if driver.find_element(By.ID, "salary").is_displayed()==True:
         driver.find_element(By.ID, "salary").click()
         time.sleep(0.1)
         driver.find_element(By.ID, "salary").clear()
@@ -45,10 +44,8 @@ try:
         driver.get(temp_url)
         driver.implicitly_wait(10)
         time.sleep(0.4)
-    else:
-        print("no popup her , DEBUG")
 except NoSuchElementException:
-    while driver.find_element(By.XPATH,"//*[@class='loanStep__wrapper']/descendant::*[contains(text(),'Thank')]").is_displayed()!=True:
+    # while driver.find_elements(By.XPATH,):
         try:
             full_name = driver.find_element(By.XPATH,"//input[@class='MuiInputBase-input MuiInput-input' and @name='full_name']")
             action.move_to_element(full_name).perform()
@@ -78,7 +75,6 @@ except NoSuchElementException:
             last_element_text = driver.find_element(By.XPATH, "(//*[contains(@class,'MuiFormControl-root')])[last()]").text
             driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.CONTROL + Keys.HOME)
             restart = True
-            action.key_down(Keys.CONTROL).key_down(Keys.SHIFT).send_keys('E').key_up(Keys.SHIFT).key_up(Keys.CONTROL).perform()
             while restart:
                 restart=False
                 print("-" * 5, driver.find_element(By.XPATH,
@@ -256,82 +252,75 @@ except NoSuchElementException:
                                 # print("-" * 5, driver.find_element(By.XPATH,"//*[@class='loanStep__wrapper']/descendant::*[contains(text(),'Details') or contains(text(),'Thank') or contains(text(),'detail')or contains(text(),'Other')or contains(text(),'other') or contains(text(),'Info') or contains(text(),'KYC') or contains(text(),'Customer') or contains(text(),'info')]").text, "-" * 5)
                         restart = True
                         break
-        except NoSuchElementException:
-            for i in range(1, 300):
-                if driver.find_element(By.XPATH,
-                                       "(//*[contains(@class,'mt-2 form-control')])/descendant-or-self::*").is_displayed() == True:
-                    document = driver.find_element(By.XPATH,
-                                                   "(//*[contains(@class,'mt-2 form-control')])/descendant-or-self::*")
-                    document.send_keys("/home/wolfie/pythonProject/Selenium-projects/practice/send.png")
-                    time.sleep(3)
-                    print('Upload document here..!')
-                random_number = str(random.randint(100, 999)) + '000'
-                random_salary = str(random.randint(50, 100)) + '000'
-                available_option = []
-                element = driver.find_element(By.XPATH,
-                                              "(//*[contains(@class,'MuiFormControl-root')])[%d]/descendant-or-self::*" % (
-                                                  i))
-                element_last = driver.find_element(By.XPATH,
-                                                   "(//*[contains(@class,'MuiFormControl-root')])[last()]/descendant-or-self::*")
-                element_inner = element.get_attribute('innerHTML')
-                element_text = element.text
-                if 'select' in element_inner:
-                    if element.is_displayed() == True:
-                        element.click()
-                        all_options = driver.find_element(By.XPATH, "//li[contains(@class,'MuiButtonBase-root')]")
-                        all_options_text = driver.find_element(By.XPATH,
-                                                               "//li[contains(@class,'MuiButtonBase-root')]").text
-                        all_options_last = driver.find_element(By.XPATH,
-                                                               "(//li[contains(@class,'MuiButtonBase-root')])[last()]").text
-                        for input in range(1, 50):
-                            all_options_text = driver.find_element(By.XPATH,
-                                                                   "(//li[contains(@class,'MuiButtonBase-root')])[%d]" % (
-                                                                       input)).text
-                            available_option.append(all_options_text)
-                            for select_option in available_option:
-                                if 'select option' in select_option.lower():
-                                    available_option.remove(select_option)
-                            if all_options_text == all_options_last:
-                                for select_option in available_option:
-                                    if 'select option' in select_option.lower():
-                                        available_option.remove(select_option)
-                                selected_option = random.choice(available_option)
-                                options = (
-                                    driver.find_element(By.XPATH, "//ul/li/em[text()='" + selected_option + "']"))
-                                options.click()
-                                print(element_text, "->", selected_option)
-                                break
-                elif 'input' in element_inner:
-                    if element.is_displayed() == True:
-                        # if ('office mobile' in element_text.lower())or('office phone' in element_text.lower()):
-                        #     element.click()
-                        #     action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
-                        #     action.send_keys('0'+test_number).perform()
-                        #     # time.sleep(1)
-                        #     print(element_text, "->", '0'+test_number)
-                        if ('type' in element_text.lower()) or ('file' in element_text.lower()):
-                            element.click()
-                            action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(
-                                Keys.BACKSPACE).perform()
-                            action.send_keys("PNG").perform()
-                            print(element_text, "->", "PNG")
-                if element == element_last:
-                    driver.find_element(By.XPATH, "//button[@class='mt-4']").click()
-                    time.sleep(2)
-                    if (driver.find_element(By.XPATH,
-                                            "//*[@class='loanStep__wrapper']/descendant::*[contains(text(),'Details') or contains(text(),'Thank') or contains(text(),'detail')or contains(text(),'Other')or contains(text(),'other') or contains(text(),'Info') or contains(text(),'KYC') or contains(text(),'Customer') or contains(text(),'info')]")):
-                        if 'Thank You' in driver.find_element(By.TAG_NAME, "html").text:
-                            print("-" * 5, driver.find_element(By.XPATH,
-                                                               "//*[@class='loanStep__wrapper']/descendant::*[contains(text(),'Details') or contains(text(),'Thank') or contains(text(),'detail')or contains(text(),'Other')or contains(text(),'other') or contains(text(),'Info') or contains(text(),'KYC') or contains(text(),'Customer') or contains(text(),'info')]").text,
-                                  "-" * 5)
-
-                            time.sleep(2000)
-                            break
-                        # else:
-                        # print("-" * 5, driver.find_element(By.XPATH,"//*[@class='loanStep__wrapper']/descendant::*[contains(text(),'Details') or contains(text(),'Thank') or contains(text(),'detail')or contains(text(),'Other')or contains(text(),'other') or contains(text(),'Info') or contains(text(),'KYC') or contains(text(),'Customer') or contains(text(),'info')]").text, "-" * 5)
-                    restart = True
-                    break
+        # except NoSuchElementException:
+        #     for i in range(1, 300):
+        #         if driver.find_element(By.XPATH,
+        #                                "(//*[contains(@class,'mt-2 form-control')])/descendant-or-self::*").is_displayed() == True:
+        #             document = driver.find_element(By.XPATH,
+        #                                            "(//*[contains(@class,'mt-2 form-control')])/descendant-or-self::*")
+        #             document.send_keys("/home/wolfie/pythonProject/Selenium-projects/practice/send.png")
+        #             time.sleep(3)
+        #             print('Upload document here..!')
+        #         available_option = []
+        #         element = driver.find_element(By.XPATH,"(//*[contains(@class,'MuiFormControl-root')])[%d]/descendant-or-self::*" % (i))
+        #         element_last = driver.find_element(By.XPATH,
+        #                                            "(//*[contains(@class,'MuiFormControl-root')])[last()]/descendant-or-self::*")
+        #         element_inner = element.get_attribute('innerHTML')
+        #         element_text = element.text
+        #         if 'select' in element_inner:
+        #             if element.is_displayed() == True:
+        #                 element.click()
+        #                 all_options = driver.find_element(By.XPATH, "//li[contains(@class,'MuiButtonBase-root')]")
+        #                 all_options_text = driver.find_element(By.XPATH,
+        #                                                        "//li[contains(@class,'MuiButtonBase-root')]").text
+        #                 all_options_last = driver.find_element(By.XPATH,
+        #                                                        "(//li[contains(@class,'MuiButtonBase-root')])[last()]").text
+        #                 for input in range(1, 50):
+        #                     all_options_text = driver.find_element(By.XPATH,
+        #                                                            "(//li[contains(@class,'MuiButtonBase-root')])[%d]" % (
+        #                                                                input)).text
+        #                     available_option.append(all_options_text)
+        #                     for select_option in available_option:
+        #                         if 'select option' in select_option.lower():
+        #                             available_option.remove(select_option)
+        #                     if all_options_text == all_options_last:
+        #                         for select_option in available_option:
+        #                             if 'select option' in select_option.lower():
+        #                                 available_option.remove(select_option)
+        #                         selected_option = random.choice(available_option)
+        #                         options = (
+        #                             driver.find_element(By.XPATH, "//ul/li/em[text()='" + selected_option + "']"))
+        #                         options.click()
+        #                         print(element_text, "->", selected_option)
+        #                         break
+        #         elif 'input' in element_inner:
+        #             if element.is_displayed() == True:
+        #                 # if ('office mobile' in element_text.lower())or('office phone' in element_text.lower()):
+        #                 #     element.click()
+        #                 #     action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
+        #                 #     action.send_keys('0'+test_number).perform()
+        #                 #     # time.sleep(1)
+        #                 #     print(element_text, "->", '0'+test_number)
+        #                 if ('type' in element_text.lower()) or ('file' in element_text.lower()):
+        #                     element.click()
+        #                     action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(
+        #                         Keys.BACKSPACE).perform()
+        #                     action.send_keys("PNG").perform()
+        #                     print(element_text, "->", "PNG")
+        #         if element == element_last:
+        #             driver.find_element(By.XPATH, "//button[@class='mt-4']").click()
+        #             time.sleep(2)
+        #             if (driver.find_element(By.XPATH,"//*[@class='loanStep__wrapper']/descendant::*[contains(text(),'Details') or contains(text(),'Thank') or contains(text(),'detail')or contains(text(),'Other')or contains(text(),'other') or contains(text(),'Info') or contains(text(),'KYC') or contains(text(),'Customer') or contains(text(),'info')]")):
+        #                 if 'Thank You' in driver.find_element(By.TAG_NAME, "html").text:
+        #                     print("-" * 5, driver.find_element(By.XPATH,"//*[@class='loanStep__wrapper']/descendant::*[contains(text(),'Details') or contains(text(),'Thank') or contains(text(),'detail')or contains(text(),'Other')or contains(text(),'other') or contains(text(),'Info') or contains(text(),'KYC') or contains(text(),'Customer') or contains(text(),'info')]").text,"-" * 5)
+        #                     time.sleep(2000)
+        #                     break
+        #                 # else:
+        #                 # print("-" * 5, driver.find_element(By.XPATH,"//*[@class='loanStep__wrapper']/descendant::*[contains(text(),'Details') or contains(text(),'Thank') or contains(text(),'detail')or contains(text(),'Other')or contains(text(),'other') or contains(text(),'Info') or contains(text(),'KYC') or contains(text(),'Customer') or contains(text(),'info')]").text, "-" * 5)
+        #             restart = True
+        #             break
         except Exception as e:
+            time.sleep(2000)
             print(e)
 
 except KeyboardInterrupt:
