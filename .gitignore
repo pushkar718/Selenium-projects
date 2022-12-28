@@ -3,4 +3,4 @@
 *.txt
 url.py
 *.log
-add-rating/rate-script.py
+add-rating
