@@ -47,7 +47,7 @@ try:
                         less.write(write)
                         print(page_name, "Has ->", count, "FAQs")
                     else:
-                        print(page_name, "Has ->", count, "FAQs")
+                        # print(page_name, "Has ->", count, "FAQs")
                         write = str(page_name) + " Has-> " + str(count) + " FAQs\n"
                         more.write(write)
                     break
