@@ -76,14 +76,14 @@ else:
         while restart:
             restart = False
             heading_text=[]
-            heading=driver.find_elements(By.XPATH,"//*[@class='loanStep__wrapper']/descendant::*[contains(text(),'Details') or contains(text(),'Thank') or contains(text(),'detail')or contains(text(),'Other')or contains(text(),'other') or contains(text(),'Info') or contains(text(),'KYC') or contains(text(),'Customer') or contains(text(),'info')]")
+            heading=driver.find_elements(By.XPATH,"//*[@class='loanStep__wrapper']/descendant::*[contains(text(),'Details') or contains(text(),'Thank') or contains(text(),'detail')or contains(text(),'Other')or contains(text(),'other') or contains(text(),'Info') or contains(text(),'KYC') or contains(text(),'Customer') or contains(text(),'info')or contains(text(),'Identity')]")
             element = driver.find_elements(By.XPATH, "//*[contains(@class,'MuiFormControl-root') or contains(@class,'mt-2 form-control')]")
             print("-"*5,heading[0].text,"-"*5)
+            document = driver.find_elements(By.XPATH, "//*[contains(@class,'mt-2 form-control')]")
             for count in range(len(element)):
                 random_number = str(random.randint(100, 999)) + '000'
                 random_salary = str(random.randint(50, 100)) + '000'
                 element_text = element[count].text
-                print(element_text,"DEBUG----")
                 available_option=[]
                 element_inner = element[count].get_attribute('innerHTML')
                 # print(element_inner)
@@ -218,10 +218,14 @@ else:
                                 print(element_text, "->", final_dob)
                             else:
                                 continue
+                        elif element_text==None:
+                            print("Document upload here..!")
+                            document = driver.find_elements(By.XPATH, "//*[contains(@class,'mt-2 form-control')]")
+                            document[0].send_keys("/home/wolfie/pythonProject/Selenium-projects/practice/send.png")
                         #
-                        # else:
-                        #     document=driver.find_elements(By.XPATH,"//*[contains(@class,'mt-2 form-control')]")
-                        #     document[0].send_keys("/home/wolfie/pythonProject/Selenium-projects/practice/send.png")
+                        else:
+
+                            document[0].send_keys("/home/wolfie/pythonProject/Selenium-projects/practice/send.png")
             driver.find_element(By.XPATH, "//button[@class='mt-4']").click()
             driver.implicitly_wait(10)
             time.sleep(0.5)
