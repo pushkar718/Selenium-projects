@@ -24,4 +24,4 @@ for i in range(2):
                  "bank_product_id":27}
     # Change testapi -> api for going on master
     response = requests.post('https://testapi.referloan.in/api/generate-otp', headers=headers, json=json_data)
-    # print(response.text)
+    print(response.text)
