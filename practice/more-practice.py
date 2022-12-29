@@ -77,14 +77,13 @@ else:
             restart = False
             heading_text=[]
             heading=driver.find_elements(By.XPATH,"//*[@class='loanStep__wrapper']/descendant::*[contains(text(),'Details') or contains(text(),'Thank') or contains(text(),'detail')or contains(text(),'Other')or contains(text(),'other') or contains(text(),'Info') or contains(text(),'KYC') or contains(text(),'Customer') or contains(text(),'info')]")
-            more_heading=driver.find_elements(By.XPATH,"//*[@class='loanStep__wrapper']/descendant::*[contains(text(),'Details') or contains(text(),'Thank') or contains(text(),'detail')or contains(text(),'Other')or contains(text(),'other') or contains(text(),'Info') or contains(text(),'KYC') or contains(text(),'Customer') or contains(text(),'info')or contains(@class,'dynamicMyForm')]")
             element = driver.find_elements(By.XPATH, "//*[contains(@class,'MuiFormControl-root') or contains(@class,'mt-2 form-control')]")
-            # element_last = driver.find_elements(By.XPATH, "(//*[contains(@class,'MuiFormControl-root')])[last()]")
-            print("-"*5,more_heading[0].text,"-"*5)
+            print("-"*5,heading[0].text,"-"*5)
             for count in range(len(element)):
                 random_number = str(random.randint(100, 999)) + '000'
                 random_salary = str(random.randint(50, 100)) + '000'
                 element_text = element[count].text
+                print(element_text,"DEBUG----")
                 available_option=[]
                 element_inner = element[count].get_attribute('innerHTML')
                 # print(element_inner)
@@ -219,6 +218,7 @@ else:
                                 print(element_text, "->", final_dob)
                             else:
                                 continue
+                        #
                         # else:
                         #     document=driver.find_elements(By.XPATH,"//*[contains(@class,'mt-2 form-control')]")
                         #     document[0].send_keys("/home/wolfie/pythonProject/Selenium-projects/practice/send.png")
