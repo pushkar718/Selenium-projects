@@ -20,7 +20,7 @@ name=NameGenerator.generator()
 list_name=name.split()
 pan_card=PanGenerator.generator(name)
 time.sleep(0.5)
-temp_url="https://qa.referloan.in/loans/cashe-personal-loan"
+temp_url="https://qa.referloan.in/loans/pnb-hfl-loan-home-loan"
 driver.get(temp_url)
 time.sleep(3)
 with py.hold('ctrl'):
@@ -94,7 +94,7 @@ except NoSuchElementException:
                             all_options = driver.find_element(By.XPATH, "//li[contains(@class,'MuiButtonBase-root')]")
                             all_options_text = driver.find_element(By.XPATH, "//li[contains(@class,'MuiButtonBase-root')]").text
                             all_options_last = driver.find_element(By.XPATH, "(//li[contains(@class,'MuiButtonBase-root')])[last()]").text
-                            for input in range(1, 50):
+                            for input in range(1, 100):
                                 all_options_text = driver.find_element(By.XPATH,"(//li[contains(@class,'MuiButtonBase-root')])[%d]" % (input)).text
                                 available_option.append(all_options_text)
                                 for select_option in available_option:
@@ -111,12 +111,6 @@ except NoSuchElementException:
                                     break
                     elif 'input' in element_inner:
                         if element.is_displayed()==True:
-                            # if ('office mobile' in element_text.lower())or('office phone' in element_text.lower()):
-                            #     element.click()
-                            #     action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
-                            #     action.send_keys('0'+test_number).perform()
-                            #     # time.sleep(1)
-                            #     print(element_text, "->", '0'+test_number)
                             if ('mobile' in element_text.lower())or('phone' in element_text.lower()):
                                 element.click()
                                 action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
