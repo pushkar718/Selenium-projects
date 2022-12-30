@@ -1,3 +1,4 @@
+import requests
 from selenium import webdriver
 import urllib.request
 import time
@@ -14,6 +15,7 @@ def connect(host='http://google.com'):
         return False
 # test
 while True:
+    time.sleep(2)
     if connect():
         time.sleep(3)
         chrome_options=Options()
@@ -25,20 +27,21 @@ while True:
             url = url.slack_url()
             webhook = WebhookClient(url)
             driver.get("https://qa.referloan.in")
+            response=requests.get("https://qa.referloan.in")
             while True:
                 for i in range(0,1000):
                     driver.refresh()
                     time.sleep(2)
                     if 'Refer' in driver.title:
                         if i<1:
-                            subprocess.Popen(['notify-send', "QA REFERLOAN IS WORKING AGAIN"])
+                            subprocess.Popen(['notify-send', "QA IS WORKING NOW"])
                             response=webhook.send(text="QA REFERLOAN IS WORKING AGAIN")
                             time.sleep(60)
                         else:
                             time.sleep(60)
                     else:
+                        response = webhook.send(text="QA IS DOWN WITH STATUS CODE %d"%response.status_code)
                         subprocess.Popen(['notify-send', "QA IS DOWN WITH STATUS CODE: %d" % response.status_code])
-                        response = webhook.send(text="QA IS DOWN")
                         time.sleep(60)
                         break
         except KeyboardInterrupt:
@@ -46,4 +49,5 @@ while True:
         except Exception as e:
             print("Some More Error Here")
             print(e)
-
+    else:
+        continue
