@@ -14,13 +14,13 @@ driver=webdriver.Chrome()
 driver.maximize_window()
 action=ActionChains(driver)
 final_dob = "10" + "10" + str(random.randint(1980, 2000))
-test_number='9667484050'
+test_number='8240281075'
 name=NameGenerator.generator()
-# temp_url=py.prompt("Enter URL: ")
+temp_url=py.prompt("Enter URL: ")
 list_name=name.split()
+# temp_url="https://qa.referloan.in/loans/axis-bank-home-loan"
 pan_card=PanGenerator.generator(name)
 time.sleep(0.5)
-temp_url="https://qa.referloan.in/loans/pnb-hfl-loan-home-loan"
 driver.get(temp_url)
 time.sleep(3)
 with py.hold('ctrl'):
@@ -131,17 +131,17 @@ except NoSuchElementException:
                                 action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
                                 action.send_keys("IDFC").perform()
                                 print(element_text, "->", "IDFC")
-                            elif ('credit bureau' in element_text.lower()):
-                                element.click()
-                                action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
-                                action.send_keys("Equifax").perform()
-                                print(element_text, "->", "Equifax")
                             elif ('credit score' in element_text.lower()):
                                 random_number=random.randint(650,850)
                                 element.click()
                                 action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
                                 action.send_keys(random_number).perform()
                                 print(element_text, "->", random_number)
+                            elif ('credit bureau' in element_text.lower()):
+                                element.click()
+                                action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
+                                action.send_keys("Equifax").perform()
+                                print(element_text, "->", "Equifax")
                             elif 'first name' in element_text.lower():
                                 element.click()
                                 action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
@@ -183,7 +183,12 @@ except NoSuchElementException:
                                 action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
                                 action.send_keys("Delhi").perform()
                                 print(element_text, "->", "Delhi")
-                            elif ('document number' in element_text.lower())or('number' in element_text.lower())or('aadhaar' in element_text.lower()):
+                            elif ('pan' in element_text.lower())or('pancard' in element_text.lower()):
+                                element.click()
+                                action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
+                                action.send_keys(pan_card).perform()
+                                print(element_text, "->", pan_card)
+                            elif ('document number' in element_text.lower())or('aadhaar' in element_text.lower())or('number' in element_text.lower()):
                                 element.click()
                                 action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
                                 action.send_keys("562453123535").perform()
@@ -208,11 +213,6 @@ except NoSuchElementException:
                                 action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
                                 action.send_keys("Delhi").perform()
                                 print(element_text, "->", "Delhi")
-                            elif ('pan' in element_text.lower())or('pancard' in element_text.lower()):
-                                element.click()
-                                action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
-                                action.send_keys(pan_card).perform()
-                                print(element_text, "->", pan_card)
                             elif ('date' in element_text.lower()) or ('birth' in element_text.lower()) or('dob' in element_text.lower()):
                                 element.click()
                                 action.double_click(element).perform()

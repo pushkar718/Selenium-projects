@@ -20,7 +20,8 @@ name=NameGenerator.generator()
 list_name=name.split()
 pan_card=PanGenerator.generator(name)
 time.sleep(0.5)
-temp_url="https://qa.referloan.in/loans/cashe-personal-loan"
+temp_url="https://qa.referloan.in/loans/finzy-personal-loan"
+# temp_url="https://qa.referloan.in/loans/pnb-hfl-loan-home-loan"
 driver.get(temp_url)
 # driver.implicitly_wait(10)
 time.sleep(2)
@@ -92,7 +93,7 @@ else:
                         all_options = driver.find_element(By.XPATH, "//li[contains(@class,'MuiButtonBase-root')]")
                         all_options_text = driver.find_element(By.XPATH, "//li[contains(@class,'MuiButtonBase-root')]").text
                         all_options_last = driver.find_element(By.XPATH, "(//li[contains(@class,'MuiButtonBase-root')])[last()]").text
-                        for input in range(1, 50):
+                        for input in range(1, 100):
                             all_options_text = driver.find_element(By.XPATH, "(//li[contains(@class,'MuiButtonBase-root')])[%d]" % (input)).text
                             available_option.append(all_options_text)
                             for select_option in available_option:
@@ -179,6 +180,11 @@ else:
                             action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
                             action.send_keys("Delhi").perform()
                             print(element_text, "->", "Delhi")
+                        elif ('pan' in element_text.lower()) or ('pancard' in element_text.lower()):
+                            element[count].click()
+                            action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
+                            action.send_keys(pan_card).perform()
+                            print(element_text, "->", pan_card)
                         elif ('document number' in element_text.lower()) or ('number' in element_text.lower()) or ('aadhaar' in element_text.lower()):
                             element[count].click()
                             action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
@@ -204,11 +210,6 @@ else:
                             action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
                             action.send_keys("Delhi").perform()
                             print(element_text, "->", "Delhi")
-                        elif ('pan' in element_text.lower()) or ('pancard' in element_text.lower()):
-                            element[count].click()
-                            action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
-                            action.send_keys(pan_card).perform()
-                            print(element_text, "->", pan_card)
                         elif ('date' in element_text.lower()) or ('birth' in element_text.lower()) or ('dob' in element_text.lower()):
                             element[count].click()
                             action.double_click(element[count]).perform()
@@ -218,17 +219,16 @@ else:
                                 print(element_text, "->", final_dob)
                             else:
                                 continue
-                        elif element_text==None:
-                            print("Document upload here..!")
-                            document = driver.find_elements(By.XPATH, "//*[contains(@class,'mt-2 form-control')]")
-                            document[0].send_keys("/home/wolfie/pythonProject/Selenium-projects/practice/send.png")
+                        # elif element_text==None:
+                        #     print("Document upload here..!")
+                        #     document = driver.find_elements(By.XPATH, "//*[contains(@class,'mt-2 form-control')]")
+                        #     document[0].send_keys("/home/wolfie/pythonProject/Selenium-projects/practice/send.png")
                         #
-                        else:
-
-                            document[0].send_keys("/home/wolfie/pythonProject/Selenium-projects/practice/send.png")
+                        # else:
+                        #
+                        #     document[0].send_keys("/home/wolfie/pythonProject/Selenium-projects/practice/send.png")
             driver.find_element(By.XPATH, "//button[@class='mt-4']").click()
-            driver.implicitly_wait(10)
-            time.sleep(0.5)
+            time.sleep(3)
             if len(heading)!=0:
                     if 'thank' in heading_text:
                         print("-"*5,heading[0].text,"-"*5)
