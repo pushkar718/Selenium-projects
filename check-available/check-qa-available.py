@@ -1,5 +1,6 @@
 import subprocess
-import urllib.request,url,requests,time
+import urllib.request,requests,time
+import url
 from slack_sdk.webhook import WebhookClient
 
 
@@ -28,11 +29,15 @@ def connect(host='http://referloan.in'):
 
 if __name__=="__main__":
     time.sleep(5)
-    if check():
-        while True:
-            try:
-                connect()
-                time.sleep(60)
-            except:
-                continue
-        # END CODE
+    while True:
+        if check():
+            time.sleep(5)
+            while True:
+                try:
+                    connect()
+                    time.sleep(60)
+                except:
+                    continue
+        else:
+            time.sleep(5)
+            # END CODE
