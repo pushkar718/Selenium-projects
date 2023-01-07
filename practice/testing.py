@@ -14,11 +14,12 @@ driver=webdriver.Chrome()
 driver.maximize_window()
 action=ActionChains(driver)
 final_dob = "10" + "10" + str(random.randint(1980, 2000))
-test_number='8240281075'
+test_number='8240282010'
 name=NameGenerator.generator()
-temp_url=py.prompt("Enter URL: ")
+# temp_url=py.prompt("Enter URL: ")
 list_name=name.split()
 # temp_url="https://qa.referloan.in/loans/axis-bank-home-loan"
+temp_url="https://qa.referloan.in/loans/cashe-personal-loan"
 pan_card=PanGenerator.generator(name)
 time.sleep(0.5)
 driver.get(temp_url)

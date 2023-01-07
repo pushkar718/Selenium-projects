@@ -14,14 +14,16 @@ driver=webdriver.Chrome()
 driver.maximize_window()
 action=ActionChains(driver)
 final_dob = "10" + "10" + str(random.randint(1980, 2000))
-test_number='9667484050'
+test_number='9667484000'
 name=NameGenerator.generator()
 # temp_url=py.prompt("Enter URL: ")
 list_name=name.split()
 pan_card=PanGenerator.generator(name)
 time.sleep(0.5)
-temp_url="https://qa.referloan.in/loans/finzy-personal-loan"
-# temp_url="https://qa.referloan.in/loans/pnb-hfl-loan-home-loan"
+# temp_url="https://qa.referloan.in/loans/tata-capital-used-car-loan"
+temp_url="https://qa.referloan.in/loans/cashe-personal-loan"
+if "qa" not in temp_url:
+    temp_url=temp_url.replace("referloan","qa.referloan")
 driver.get(temp_url)
 # driver.implicitly_wait(10)
 time.sleep(2)
@@ -32,7 +34,7 @@ with py.hold('ctrl'):
     py.press('-')
     py.press('-')
 # try:
-if (driver.find_elements(By.ID, "salary"))==0:
+if (len(driver.find_elements(By.ID, "salary")))!=0:
         driver.find_element(By.ID, "salary").click()
         time.sleep(0.1)
         driver.find_element(By.ID, "salary").clear()
@@ -76,9 +78,17 @@ else:
         restart = True
         while restart:
             restart = False
-            heading_text=[]
             heading=driver.find_elements(By.XPATH,"//*[@class='loanStep__wrapper']/descendant::*[contains(text(),'Details') or contains(text(),'Thank') or contains(text(),'detail')or contains(text(),'Other')or contains(text(),'other') or contains(text(),'Info') or contains(text(),'KYC') or contains(text(),'Customer') or contains(text(),'info')or contains(text(),'Identity')]")
+            heading_text=[]
+            for hcount in range(len(heading)):
+                heading_text.append(heading[hcount].text)
+                print(heading_text,"DEBUG")
             element = driver.find_elements(By.XPATH, "//*[contains(@class,'MuiFormControl-root') or contains(@class,'mt-2 form-control')]")
+            if 'Thank You!' in heading_text:
+                print("-" * 5, heading[0].text, "-" * 5)
+                time.sleep(2)
+                driver.close()
+                exit(1)
             print("-"*5,heading[0].text,"-"*5)
             document = driver.find_elements(By.XPATH, "//*[contains(@class,'mt-2 form-control')]")
             for count in range(len(element)):

@@ -11,20 +11,23 @@ def check(chost="https://google.com"):
     global check_response
     try:
         check_response=requests.get(chost)
-        subprocess.Popen(["notify-send", "Connected to google..!"])
+        subprocess.Popen(["notify-send", "Internet Working"])
         urllib.request.urlopen(chost)
         return True
     except:
-        check_response=subprocess.Popen(["notify-send","Cannot connect to google..!"])
+        check_response=subprocess.Popen(["notify-send","Internet Not Working"])
         return False
 def connect(host='http://referloan.in'):
     global response
     try:
         response=requests.get(host)
         urllib.request.urlopen(host)
+        subprocess.Popen(["notify-send", "Successfully connected to referloan..!"])
         return True
     except:
-        response = webhook.send(text="Referloan is DOWN with status code %d"%response.status_code)
+        if response.status_code!=200:
+            response = webhook.send(text="Referloan is DOWN with status code %d"%response.status_code)
+        subprocess.Popen(["notify-send", "Internet Not Working"])
         return False
 
 if __name__=="__main__":
@@ -33,11 +36,10 @@ if __name__=="__main__":
         if check():
             time.sleep(5)
             while True:
-                try:
-                    connect()
+                if connect():
                     time.sleep(60)
-                except:
-                    continue
+                else:
+                    break
         else:
             time.sleep(5)
             # END CODE
