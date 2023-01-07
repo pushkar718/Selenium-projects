@@ -22,7 +22,7 @@ def connect(host='http://referloan.in'):
     try:
         response=requests.get(host)
         urllib.request.urlopen(host)
-        subprocess.Popen(["notify-send", "Successfully connected to referloan..!"])
+        # subprocess.Popen(["notify-send", "Successfully connected to referloan..!"])
         return True
     except:
         if response.status_code!=200:
@@ -39,6 +39,7 @@ if __name__=="__main__":
                 if connect():
                     time.sleep(60)
                 else:
+                    time.sleep(5)
                     break
         else:
             time.sleep(5)
